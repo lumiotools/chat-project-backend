@@ -4,7 +4,6 @@ import { createServer } from "http";
 import express from "express";
 import { Server } from "socket.io";
 import cors from "cors";
-import DBConnection from "./files/utils/db.js";
 import userRoute from "./files/routes/user.route.js";
 import jwt from "jsonwebtoken";
 import { insertUserMessage } from "./files/functions/insertUserMessage.js";
@@ -23,7 +22,6 @@ export const io = new Server(server, {
 
 
 
-  DBConnection();
   app.use(express.json());
   app.use(cors());
   app.use("/api/v1",userRoute);

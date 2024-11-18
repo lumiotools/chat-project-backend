@@ -1,0 +1,1545 @@
+{
+  "requesterUsername": "DawoodKhatri",
+  "requesterAvatarIconUri": {
+    "$mid": 1,
+    "path": "/u/97241766",
+    "scheme": "https",
+    "authority": "avatars.githubusercontent.com",
+    "query": "v=4"
+  },
+  "responderUsername": "GitHub Copilot",
+  "responderAvatarIconUri": {
+    "id": "copilot"
+  },
+  "initialLocation": "panel",
+  "requests": [
+    {
+      "message": {
+        "text": "@workspace give api docs",
+        "parts": [
+          {
+            "range": {
+              "start": 0,
+              "endExclusive": 10
+            },
+            "editorRange": {
+              "startLineNumber": 1,
+              "startColumn": 1,
+              "endLineNumber": 1,
+              "endColumn": 11
+            },
+            "agent": {
+              "extensionId": {
+                "value": "GitHub.copilot-chat",
+                "_lower": "github.copilot-chat"
+              },
+              "publisherDisplayName": "GitHub",
+              "extensionPublisherId": "GitHub",
+              "extensionDisplayName": "GitHub Copilot Chat",
+              "id": "github.copilot.workspace",
+              "description": "Ask about your workspace",
+              "metadata": {
+                "sampleRequest": "How do I build this project?",
+                "themeIcon": {
+                  "id": "code"
+                },
+                "hasFollowups": true,
+                "isSecondary": true,
+                "supportIssueReporting": false
+              },
+              "name": "workspace",
+              "fullName": "Workspace",
+              "locations": [
+                "panel"
+              ],
+              "slashCommands": [
+                {
+                  "name": "explain",
+                  "description": "Explain how the code in your active editor works"
+                },
+                {
+                  "name": "tests",
+                  "description": "Generate unit tests for the selected code"
+                },
+                {
+                  "name": "fix",
+                  "description": "Propose a fix for the problems in the selected code",
+                  "sampleRequest": "There is a problem in this code. Rewrite the code to show it with the bug fixed."
+                },
+                {
+                  "name": "new",
+                  "description": "Scaffold code for a new file or project in a workspace",
+                  "sampleRequest": "Create a RESTful API server using typescript",
+                  "isSticky": true
+                },
+                {
+                  "name": "newNotebook",
+                  "description": "Create a new Jupyter Notebook",
+                  "sampleRequest": "How do I create a notebook to load data from a csv file?"
+                },
+                {
+                  "name": "fixTestFailure",
+                  "description": "Propose a fix for the failing test",
+                  "when": "config.github.copilot.chat.fixTestFailure.enabled"
+                },
+                {
+                  "name": "setupTests",
+                  "description": "Set up tests in your project (Experimental)",
+                  "sampleRequest": "add playwright tests to my project",
+                  "when": "config.github.copilot.chat.setupTests.enabled"
+                }
+              ],
+              "disambiguation": []
+            },
+            "kind": "agent"
+          },
+          {
+            "range": {
+              "start": 10,
+              "endExclusive": 24
+            },
+            "editorRange": {
+              "startLineNumber": 1,
+              "startColumn": 11,
+              "endLineNumber": 1,
+              "endColumn": 25
+            },
+            "text": " give api docs",
+            "kind": "text"
+          }
+        ]
+      },
+      "variableData": {
+        "variables": [
+          {
+            "id": "vscode.implicit.viewport",
+            "name": "file:index.js",
+            "value": {
+              "uri": {
+                "$mid": 1,
+                "fsPath": "d:\\LUMIO_AI\\ritesh-chat-project-backend\\index.js",
+                "_sep": 1,
+                "external": "file:///d%3A/LUMIO_AI/ritesh-chat-project-backend/index.js",
+                "path": "/D:/LUMIO_AI/ritesh-chat-project-backend/index.js",
+                "scheme": "file"
+              },
+              "range": {
+                "startLineNumber": 28,
+                "startColumn": 1,
+                "endLineNumber": 56,
+                "endColumn": 5
+              }
+            },
+            "isFile": true,
+            "isDynamic": true,
+            "modelDescription": "User's current visible code"
+          }
+        ]
+      },
+      "response": [
+        {
+          "kind": "progressMessage",
+          "content": {
+            "value": "Collecting workspace information",
+            "uris": {}
+          }
+        },
+        {
+          "value": "Sure, here is the API documentation for the endpoints defined in your project:\n\n## API Documentation\n\n### Base URL\n```\nhttp://<your-domain>/api/v1\n```\n\n### Endpoints\n\n#### User Registration\n- **URL:** `/register`\n- **Method:** `POST`\n- **Description:** Registers a new user.\n- **Request Body:**\n  ```json\n  {\n    \"email\": \"user@example.com\",\n    \"password\": \"password123\"\n  }\n  ```\n- **Response:**\n  ```json\n  {\n    \"success\": true,\n    \"message\": \"User registered successfully\",\n    \"data\": {\n      \"email\": \"user@example.com\",\n      \"token\": \"jwt_token\",\n      \"otp\": \"123456\"\n    }\n  }\n  ```\n\n#### User Login\n- **URL:** `/login`\n- **Method:** `POST`\n- **Description:** Logs in an existing user.\n- **Request Body:**\n  ```json\n  {\n    \"email\": \"user@example.com\",\n    \"password\": \"password123\"\n  }\n  ```\n- **Response:**\n  ```json\n  {\n    \"success\": true,\n    \"message\": \"User login successfully\",\n    \"data\": {\n      \"email\": \"user@example.com\",\n      \"token\": \"jwt_token\",\n      \"otp\": \"123456\",\n      \"isVerifyed\": false,\n      \"isTwoFactorEnabled\": true\n    }\n  }\n  ```\n\n#### Forgot Password\n- **URL:** `/forgot-password`\n- **Method:** `POST`\n- **Description:** Sends a password reset email.\n- **Request Body:**\n  ```json\n  {\n    \"email\": \"user@example.com\"\n  }\n  ```\n- **Response:**\n  ```json\n  {\n    \"success\": true,\n    \"message\": \"forgot email sent successfully\",\n    \"data\": {\n      \"otp\": \"123456\",\n      \"token\": \"jwt_token\"\n    }\n  }\n  ```\n\n#### Resend Email\n- **URL:** `/resend-email`\n- **Method:** `POST`\n- **Description:** Resends the verification email.\n- **Request Body:**\n  ```json\n  {\n    \"token\": \"jwt_token\"\n  }\n  ```\n- **Response:**\n  ```json\n  {\n    \"success\": true,\n    \"message\": \"otp sent successfully\",\n    \"data\": {\n      \"otp\": \"123456\",\n      \"email\": \"user@example.com\"\n    }\n  }\n  ```\n\n#### Verify User\n- **URL:** `/verify-user`\n- **Method:** `POST`\n- **Description:** Verifies a user.\n- **Request Body:**\n  ```json\n  {\n    \"token\": \"jwt_token\"\n  }\n  ```\n- **Response:**\n  ```json\n  {\n    \"success\": true,\n    \"message\": \"verification successfully\",\n    \"data\": {\n      \"message\": \"verification updated\"\n    }\n  }\n  ```\n\n#### Update Password\n- **URL:** `/update-password`\n- **Method:** `POST`\n- **Description:** Updates the user's password.\n- **Request Body:**\n  ```json\n  {\n    \"token\": \"jwt_token\",\n    \"password\": \"new_password\"\n  }\n  ```\n- **Response:**\n  ```json\n  {\n    \"success\": true,\n    \"message\": \"password updated successfully\",\n    \"data\": {\n      \"message\": \"password updated\"\n    }\n  }\n  ```\n\n#### Update Profile\n- **URL:** `/update-profile`\n- **Method:** `POST`\n- **Description:** Updates the user's profile.\n- **Request Body:**\n  ```json\n  {\n    \"token\": \"jwt_token\",\n    \"profileImage\": \"new_image_url\",\n    \"about\": \"new_about\",\n    \"age\": 25,\n    \"userName\": \"new_username\"\n  }\n  ```\n- **Response:**\n  ```json\n  {\n    \"success\": true,\n    \"message\": \"profile update successfully\",\n    \"data\": {\n      \"profileImage\": \"new_image_url\",\n      \"about\": \"new_about\",\n      \"age\": 25,\n      \"userName\": \"new_username\"\n    }\n  }\n  ```\n\n#### Get User Details\n- **URL:** `/get-user-details`\n- **Method:** `POST`\n- **Description:** Retrieves the user's details.\n- **Request Body:**\n  ```json\n  {\n    \"token\": \"jwt_token\"\n  }\n  ```\n- **Response:**\n  ```json\n  {\n    \"success\": true,\n    \"message\": \"profile update successfully\",\n    \"data\": {\n      \"email\": \"user@example.com\",\n      \"profileImage\": \"profile_image_url\",\n      \"about\": \"about\",\n      \"age\": 25,\n      \"userName\": \"username\"\n    }\n  }\n  ```\n\n#### Send Friend Request\n- **URL:** `/sent-request`\n- **Method:** `POST`\n- **Description:** Sends a friend request.\n- **Request Body:**\n  ```json\n  {\n    \"token\": \"jwt_token\",\n    \"to\": \"user_id\"\n  }\n  ```\n- **Response:**\n  ```json\n  {\n    \"success\": true,\n    \"message\": \"Request sent successfully.\"\n  }\n  ```\n\n#### Accept Friend Request\n- **URL:** `/accept-request`\n- **Method:** `POST`\n- **Description:** Accepts a friend request.\n- **Request Body:**\n  ```json\n  {\n    \"token\": \"jwt_token\",\n    \"to\": \"user_id\"\n  }\n  ```\n- **Response:**\n  ```json\n  {\n    \"success\": true,\n    \"message\": \"Request accepted successfully.\"\n  }\n  ```\n\n#### Reject Friend Request\n- **URL:** `/reject-request`\n- **Method:** `POST`\n- **Description:** Rejects a friend request.\n- **Request Body:**\n  ```json\n  {\n    \"token\": \"jwt_token\",\n    \"to\": \"user_id\"\n  }\n  ```\n- **Response:**\n  ```json\n  {\n    \"success\": true,\n    \"message\": \"Request rejected successfully.\"\n  }\n  ```\n\n#### Get All Sent Requests\n- **URL:** `/get-all-user-sent-requests`\n- **Method:** `POST`\n- **Description:** Retrieves all sent friend requests.\n- **Request Body:**\n  ```json\n  {\n    \"token\": \"jwt_token\"\n  }\n  ```\n- **Response:**\n  ```json\n  {\n    \"success\": true,\n    \"message\": \"Profile updated successfully\",\n    \"data\": [\n      {\n        \"id\": \"user_id\",\n        \"user_name\": \"username\",\n        \"about\": \"about\",\n        \"profile_image\": \"profile_image_url\"\n      }\n    ]\n  }\n  ```\n\n#### Get All Accepted Requests\n- **URL:** `/get-all-users-accept-requests`\n- **Method:** `POST`\n- **Description:** Retrieves all accepted friend requests.\n- **Request Body:**\n  ```json\n  {\n    \"token\": \"jwt_token\"\n  }\n  ```\n- **Response:**\n  ```json\n  {\n    \"success\": true,\n    \"message\": \"Users list retrieved successfully\",\n    \"data\": [\n      {\n        \"id\": \"user_id\",\n        \"user_name\": \"username\",\n        \"about\": \"about\",\n        \"profile_image\": \"profile_image_url\"\n      }\n    ]\n  }\n  ```\n\n#### Get All Friends\n- **URL:** `/get-all-friends`\n- **Method:** `POST`\n- **Description:** Retrieves all friends.\n- **Request Body:**\n  ```json\n  {\n    \"token\": \"jwt_token\"\n  }\n  ```\n- **Response:**\n  ```json\n  {\n    \"success\": true,\n    \"message\": \"Friends list retrieved successfully\",\n    \"data\": [\n      {\n        \"id\": \"user_id\",\n        \"user_name\": \"username\",\n        \"about\": \"about\",\n        \"profile_image\": \"profile_image_url\"\n      }\n    ]\n  }\n  ```\n\n#### Create Group\n- **URL:** `/create-group`\n- **Method:** `POST`\n- **Description:** Creates a new group.\n- **Request Body:**\n  ```json\n  {\n    \"token\": \"jwt_token\",\n    \"groupName\": \"group_name\",\n    \"about\": \"group_about\",\n    \"profileImage\": \"group_profile_image\"\n  }\n  ```\n- **Response:**\n  ```json\n  {\n    \"success\": true,\n    \"message\": \"Group created successfully\"\n  }\n  ```\n\n#### Join Group\n- **URL:** `/join-group`\n- **Method:** `POST`\n- **Description:** Joins an existing group.\n- **Request Body:**\n  ```json\n  {\n    \"token\": \"jwt_token\",\n    \"groupId\": \"group_id\"\n  }\n  ```\n- **Response:**\n  ```json\n  {\n    \"success\": true,\n    \"message\": \"Group joined successfully\"\n  }\n  ```\n\n#### Get All Groups\n- **URL:** `/get-all-groups`\n- **Method:** `POST`\n- **Description:** Retrieves all groups the user is a member of.\n- **Request Body:**\n  ```json\n  {\n    \"token\": \"jwt_token\"\n  }\n  ```\n- **Response:**\n  ```json\n  {\n    \"success\": true,\n    \"message\": \"Groups retrieved successfully\",\n    \"data\": [\n      {\n        \"id\": \"group_id\",\n        \"groupName\": \"group_name\",\n        \"about\": \"group_about\",\n        \"profileImage\": \"group_profile_image\"\n      }\n    ]\n  }\n  ```\n\n#### Get All Groups to Join\n- **URL:** `/get-all-groups-join`\n- **Method:** `POST`\n- **Description:** Retrieves all groups the user can join.\n- **Request Body:**\n  ```json\n  {\n    \"token\": \"jwt_token\"\n  }\n  ```\n- **Response:**\n  ```json\n  {\n    \"success\": true,\n    \"message\": \"Groups available to join\",\n    \"data\": [\n      {\n        \"id\": \"group_id\",\n        \"groupName\": \"group_name\",\n        \"about\": \"group_about\",\n        \"profileImage\": \"group_profile_image\"\n      }\n    ]\n  }\n  ```\n\n#### Get Chat Details\n- **URL:** `/get-chat-details`\n- **Method:** `POST`\n- **Description:** Retrieves chat details for a user or group.\n- **Request Body:**\n  ```json\n  {\n    \"token\": \"jwt_token\",\n    \"chatId\": \"chat_id\",\n    \"chatType\": \"friend|group\"\n  }\n  ```\n- **Response:**\n  ```json\n  {\n    \"success\": true,\n    \"message\": \"Chat details retrieved successfully\",\n    \"data\": {\n      \"id\": \"chat_id\",\n      \"user_name\": \"username\",\n      \"about\": \"about\",\n      \"profile_image\": \"profile_image_url\"\n    },\n    \"userId\": \"user_id\"\n  }\n  ```\n\n#### Get Messages\n- **URL:** `/get-messages`\n- **Method:** `POST`\n- **Description:** Retrieves messages for a user or group chat.\n- **Request Body:**\n  ```json\n  {\n    \"token\": \"jwt_token\",\n    \"chatId\": \"chat_id\",\n    \"chatType\": \"friend|group\"\n  }\n  ```\n- **Response:**\n  ```json\n  {\n    \"success\": true,\n    \"message\": \"Messages retrieved successfully\",\n    \"data\": [\n      {\n        \"from\": \"user_id\",\n        \"to\": \"chat_id\",\n        \"message\": \"message_content\",\n        \"messageType\": \"TEXT|IMAGE|VIDEO\",\n        \"createdAt\": \"timestamp\",\n        \"updatedAt\": \"timestamp\"\n      }\n    ]\n  }\n  ```\n\n### WebSocket Events\n\n#### Send Message\n- **Event:** `sendMessage`\n- **Description:** Sends a message to a user or group.\n- **Payload:**\n  ```json\n  {\n    \"token\": \"jwt_token\",\n    \"to\": \"recipient_id\",\n    \"chatType\": \"friend|group\",\n    \"message\": \"message_content\",\n    \"messageType\": \"TEXT|IMAGE|VIDEO\"\n  }\n  ```\n- **Response:**\n  ```json\n  {\n    \"to\": \"recipient_id\",\n    \"from\": \"sender_id\"\n  }\n  ```\n\n#### New Message\n- **Event:** `newMessage`\n- **Description:** Receives a new message notification.\n- **Payload:**\n  ```json\n  {\n    \"to\": \"recipient_id\",\n    \"from\": \"sender_id\"\n  }\n  ```\n\nThis documentation covers the main API endpoints and WebSocket events for your chat backend application.",
+          "supportThemeIcons": false,
+          "supportHtml": false
+        }
+      ],
+      "result": {
+        "timings": {
+          "firstProgress": 9138,
+          "totalElapsed": 77337
+        },
+        "metadata": {
+          "modelMessageId": "7dbd81d3-503a-4d54-b9d3-d4a8215bd792",
+          "responseId": "5081f8ee-6a82-4c77-aedc-394e26c76b3a",
+          "sessionId": "19429e09-06b6-46a7-8e60-37592cb0bccb",
+          "agentId": "github.copilot.workspace"
+        }
+      },
+      "followups": [
+        {
+          "kind": "reply",
+          "agentId": "github.copilot.workspace",
+          "message": "Can you explain authentication methods?"
+        }
+      ],
+      "isCanceled": false,
+      "agent": {
+        "extensionId": {
+          "value": "GitHub.copilot-chat",
+          "_lower": "github.copilot-chat"
+        },
+        "publisherDisplayName": "GitHub",
+        "extensionPublisherId": "GitHub",
+        "extensionDisplayName": "GitHub Copilot Chat",
+        "id": "github.copilot.workspace",
+        "description": "Ask about your workspace",
+        "metadata": {
+          "sampleRequest": "How do I build this project?",
+          "themeIcon": {
+            "id": "code"
+          },
+          "hasFollowups": true,
+          "isSecondary": true,
+          "supportIssueReporting": false
+        },
+        "name": "workspace",
+        "fullName": "Workspace",
+        "locations": [
+          "panel"
+        ],
+        "slashCommands": [
+          {
+            "name": "explain",
+            "description": "Explain how the code in your active editor works"
+          },
+          {
+            "name": "tests",
+            "description": "Generate unit tests for the selected code"
+          },
+          {
+            "name": "fix",
+            "description": "Propose a fix for the problems in the selected code",
+            "sampleRequest": "There is a problem in this code. Rewrite the code to show it with the bug fixed."
+          },
+          {
+            "name": "new",
+            "description": "Scaffold code for a new file or project in a workspace",
+            "sampleRequest": "Create a RESTful API server using typescript",
+            "isSticky": true
+          },
+          {
+            "name": "newNotebook",
+            "description": "Create a new Jupyter Notebook",
+            "sampleRequest": "How do I create a notebook to load data from a csv file?"
+          },
+          {
+            "name": "fixTestFailure",
+            "description": "Propose a fix for the failing test",
+            "when": "config.github.copilot.chat.fixTestFailure.enabled"
+          },
+          {
+            "name": "setupTests",
+            "description": "Set up tests in your project (Experimental)",
+            "sampleRequest": "add playwright tests to my project",
+            "when": "config.github.copilot.chat.setupTests.enabled"
+          }
+        ],
+        "disambiguation": []
+      },
+      "contentReferences": [
+        {
+          "kind": "reference",
+          "reference": {
+            "$mid": 1,
+            "fsPath": "d:\\LUMIO_AI\\ritesh-chat-project-backend\\.gitignore",
+            "_sep": 1,
+            "external": "file:///d%3A/LUMIO_AI/ritesh-chat-project-backend/.gitignore",
+            "path": "/d:/LUMIO_AI/ritesh-chat-project-backend/.gitignore",
+            "scheme": "file"
+          }
+        },
+        {
+          "kind": "reference",
+          "reference": {
+            "uri": {
+              "$mid": 1,
+              "fsPath": "d:\\LUMIO_AI\\ritesh-chat-project-backend\\files\\controllers\\acceptRequest.controller.js",
+              "_sep": 1,
+              "external": "file:///d%3A/LUMIO_AI/ritesh-chat-project-backend/files/controllers/acceptRequest.controller.js",
+              "path": "/d:/LUMIO_AI/ritesh-chat-project-backend/files/controllers/acceptRequest.controller.js",
+              "scheme": "file"
+            },
+            "range": {
+              "startLineNumber": 1,
+              "startColumn": 1,
+              "endLineNumber": 64,
+              "endColumn": 1
+            }
+          }
+        },
+        {
+          "kind": "reference",
+          "reference": {
+            "uri": {
+              "$mid": 1,
+              "fsPath": "d:\\LUMIO_AI\\ritesh-chat-project-backend\\files\\controllers\\createGroup.controller.js",
+              "_sep": 1,
+              "external": "file:///d%3A/LUMIO_AI/ritesh-chat-project-backend/files/controllers/createGroup.controller.js",
+              "path": "/d:/LUMIO_AI/ritesh-chat-project-backend/files/controllers/createGroup.controller.js",
+              "scheme": "file"
+            },
+            "range": {
+              "startLineNumber": 1,
+              "startColumn": 1,
+              "endLineNumber": 56,
+              "endColumn": 1
+            }
+          }
+        },
+        {
+          "kind": "reference",
+          "reference": {
+            "uri": {
+              "$mid": 1,
+              "fsPath": "d:\\LUMIO_AI\\ritesh-chat-project-backend\\files\\controllers\\forgotPassword.controller.js",
+              "_sep": 1,
+              "external": "file:///d%3A/LUMIO_AI/ritesh-chat-project-backend/files/controllers/forgotPassword.controller.js",
+              "path": "/d:/LUMIO_AI/ritesh-chat-project-backend/files/controllers/forgotPassword.controller.js",
+              "scheme": "file"
+            },
+            "range": {
+              "startLineNumber": 1,
+              "startColumn": 1,
+              "endLineNumber": 57,
+              "endColumn": 1
+            }
+          }
+        },
+        {
+          "kind": "reference",
+          "reference": {
+            "uri": {
+              "$mid": 1,
+              "fsPath": "d:\\LUMIO_AI\\ritesh-chat-project-backend\\files\\controllers\\getAllFriends.controller.js",
+              "_sep": 1,
+              "external": "file:///d%3A/LUMIO_AI/ritesh-chat-project-backend/files/controllers/getAllFriends.controller.js",
+              "path": "/d:/LUMIO_AI/ritesh-chat-project-backend/files/controllers/getAllFriends.controller.js",
+              "scheme": "file"
+            },
+            "range": {
+              "startLineNumber": 1,
+              "startColumn": 1,
+              "endLineNumber": 68,
+              "endColumn": 1
+            }
+          }
+        },
+        {
+          "kind": "reference",
+          "reference": {
+            "uri": {
+              "$mid": 1,
+              "fsPath": "d:\\LUMIO_AI\\ritesh-chat-project-backend\\files\\controllers\\getAllGroups.controller.js",
+              "_sep": 1,
+              "external": "file:///d%3A/LUMIO_AI/ritesh-chat-project-backend/files/controllers/getAllGroups.controller.js",
+              "path": "/d:/LUMIO_AI/ritesh-chat-project-backend/files/controllers/getAllGroups.controller.js",
+              "scheme": "file"
+            },
+            "range": {
+              "startLineNumber": 1,
+              "startColumn": 1,
+              "endLineNumber": 54,
+              "endColumn": 1
+            }
+          }
+        },
+        {
+          "kind": "reference",
+          "reference": {
+            "uri": {
+              "$mid": 1,
+              "fsPath": "d:\\LUMIO_AI\\ritesh-chat-project-backend\\files\\controllers\\getAllGroupsJoin.controller.js",
+              "_sep": 1,
+              "external": "file:///d%3A/LUMIO_AI/ritesh-chat-project-backend/files/controllers/getAllGroupsJoin.controller.js",
+              "path": "/d:/LUMIO_AI/ritesh-chat-project-backend/files/controllers/getAllGroupsJoin.controller.js",
+              "scheme": "file"
+            },
+            "range": {
+              "startLineNumber": 1,
+              "startColumn": 1,
+              "endLineNumber": 54,
+              "endColumn": 1
+            }
+          }
+        },
+        {
+          "kind": "reference",
+          "reference": {
+            "uri": {
+              "$mid": 1,
+              "fsPath": "d:\\LUMIO_AI\\ritesh-chat-project-backend\\files\\controllers\\getAllUsersAcceptRequest.controller.js",
+              "_sep": 1,
+              "external": "file:///d%3A/LUMIO_AI/ritesh-chat-project-backend/files/controllers/getAllUsersAcceptRequest.controller.js",
+              "path": "/d:/LUMIO_AI/ritesh-chat-project-backend/files/controllers/getAllUsersAcceptRequest.controller.js",
+              "scheme": "file"
+            },
+            "range": {
+              "startLineNumber": 1,
+              "startColumn": 1,
+              "endLineNumber": 74,
+              "endColumn": 1
+            }
+          }
+        },
+        {
+          "kind": "reference",
+          "reference": {
+            "uri": {
+              "$mid": 1,
+              "fsPath": "d:\\LUMIO_AI\\ritesh-chat-project-backend\\files\\controllers\\getAllusersSentRequest.controller.js",
+              "_sep": 1,
+              "external": "file:///d%3A/LUMIO_AI/ritesh-chat-project-backend/files/controllers/getAllusersSentRequest.controller.js",
+              "path": "/d:/LUMIO_AI/ritesh-chat-project-backend/files/controllers/getAllusersSentRequest.controller.js",
+              "scheme": "file"
+            },
+            "range": {
+              "startLineNumber": 1,
+              "startColumn": 1,
+              "endLineNumber": 53,
+              "endColumn": 1
+            }
+          }
+        },
+        {
+          "kind": "reference",
+          "reference": {
+            "uri": {
+              "$mid": 1,
+              "fsPath": "d:\\LUMIO_AI\\ritesh-chat-project-backend\\files\\controllers\\getChatDetails.controller.js",
+              "_sep": 1,
+              "external": "file:///d%3A/LUMIO_AI/ritesh-chat-project-backend/files/controllers/getChatDetails.controller.js",
+              "path": "/d:/LUMIO_AI/ritesh-chat-project-backend/files/controllers/getChatDetails.controller.js",
+              "scheme": "file"
+            },
+            "range": {
+              "startLineNumber": 1,
+              "startColumn": 1,
+              "endLineNumber": 79,
+              "endColumn": 1
+            }
+          }
+        },
+        {
+          "kind": "reference",
+          "reference": {
+            "uri": {
+              "$mid": 1,
+              "fsPath": "d:\\LUMIO_AI\\ritesh-chat-project-backend\\files\\controllers\\getMessages.controller.js",
+              "_sep": 1,
+              "external": "file:///d%3A/LUMIO_AI/ritesh-chat-project-backend/files/controllers/getMessages.controller.js",
+              "path": "/d:/LUMIO_AI/ritesh-chat-project-backend/files/controllers/getMessages.controller.js",
+              "scheme": "file"
+            },
+            "range": {
+              "startLineNumber": 1,
+              "startColumn": 1,
+              "endLineNumber": 59,
+              "endColumn": 1
+            }
+          }
+        },
+        {
+          "kind": "reference",
+          "reference": {
+            "uri": {
+              "$mid": 1,
+              "fsPath": "d:\\LUMIO_AI\\ritesh-chat-project-backend\\files\\controllers\\getUserDetails.controller.js",
+              "_sep": 1,
+              "external": "file:///d%3A/LUMIO_AI/ritesh-chat-project-backend/files/controllers/getUserDetails.controller.js",
+              "path": "/d:/LUMIO_AI/ritesh-chat-project-backend/files/controllers/getUserDetails.controller.js",
+              "scheme": "file"
+            },
+            "range": {
+              "startLineNumber": 1,
+              "startColumn": 1,
+              "endLineNumber": 37,
+              "endColumn": 1
+            }
+          }
+        },
+        {
+          "kind": "reference",
+          "reference": {
+            "uri": {
+              "$mid": 1,
+              "fsPath": "d:\\LUMIO_AI\\ritesh-chat-project-backend\\files\\controllers\\joinGroup.controller.js",
+              "_sep": 1,
+              "external": "file:///d%3A/LUMIO_AI/ritesh-chat-project-backend/files/controllers/joinGroup.controller.js",
+              "path": "/d:/LUMIO_AI/ritesh-chat-project-backend/files/controllers/joinGroup.controller.js",
+              "scheme": "file"
+            },
+            "range": {
+              "startLineNumber": 1,
+              "startColumn": 1,
+              "endLineNumber": 63,
+              "endColumn": 1
+            }
+          }
+        },
+        {
+          "kind": "reference",
+          "reference": {
+            "uri": {
+              "$mid": 1,
+              "fsPath": "d:\\LUMIO_AI\\ritesh-chat-project-backend\\files\\controllers\\loginUser.controller.js",
+              "_sep": 1,
+              "external": "file:///d%3A/LUMIO_AI/ritesh-chat-project-backend/files/controllers/loginUser.controller.js",
+              "path": "/d:/LUMIO_AI/ritesh-chat-project-backend/files/controllers/loginUser.controller.js",
+              "scheme": "file"
+            },
+            "range": {
+              "startLineNumber": 1,
+              "startColumn": 1,
+              "endLineNumber": 69,
+              "endColumn": 1
+            }
+          }
+        },
+        {
+          "kind": "reference",
+          "reference": {
+            "uri": {
+              "$mid": 1,
+              "fsPath": "d:\\LUMIO_AI\\ritesh-chat-project-backend\\files\\controllers\\register.controller.js",
+              "_sep": 1,
+              "external": "file:///d%3A/LUMIO_AI/ritesh-chat-project-backend/files/controllers/register.controller.js",
+              "path": "/d:/LUMIO_AI/ritesh-chat-project-backend/files/controllers/register.controller.js",
+              "scheme": "file"
+            },
+            "range": {
+              "startLineNumber": 1,
+              "startColumn": 1,
+              "endLineNumber": 62,
+              "endColumn": 1
+            }
+          }
+        },
+        {
+          "kind": "reference",
+          "reference": {
+            "uri": {
+              "$mid": 1,
+              "fsPath": "d:\\LUMIO_AI\\ritesh-chat-project-backend\\files\\controllers\\rejectRequest.controller.js",
+              "_sep": 1,
+              "external": "file:///d%3A/LUMIO_AI/ritesh-chat-project-backend/files/controllers/rejectRequest.controller.js",
+              "path": "/d:/LUMIO_AI/ritesh-chat-project-backend/files/controllers/rejectRequest.controller.js",
+              "scheme": "file"
+            },
+            "range": {
+              "startLineNumber": 1,
+              "startColumn": 1,
+              "endLineNumber": 70,
+              "endColumn": 1
+            }
+          }
+        },
+        {
+          "kind": "reference",
+          "reference": {
+            "uri": {
+              "$mid": 1,
+              "fsPath": "d:\\LUMIO_AI\\ritesh-chat-project-backend\\files\\controllers\\resendEmail.controller.js",
+              "_sep": 1,
+              "external": "file:///d%3A/LUMIO_AI/ritesh-chat-project-backend/files/controllers/resendEmail.controller.js",
+              "path": "/d:/LUMIO_AI/ritesh-chat-project-backend/files/controllers/resendEmail.controller.js",
+              "scheme": "file"
+            },
+            "range": {
+              "startLineNumber": 1,
+              "startColumn": 1,
+              "endLineNumber": 41,
+              "endColumn": 3
+            }
+          }
+        },
+        {
+          "kind": "reference",
+          "reference": {
+            "uri": {
+              "$mid": 1,
+              "fsPath": "d:\\LUMIO_AI\\ritesh-chat-project-backend\\files\\controllers\\sendRequest.controller.js",
+              "_sep": 1,
+              "external": "file:///d%3A/LUMIO_AI/ritesh-chat-project-backend/files/controllers/sendRequest.controller.js",
+              "path": "/d:/LUMIO_AI/ritesh-chat-project-backend/files/controllers/sendRequest.controller.js",
+              "scheme": "file"
+            },
+            "range": {
+              "startLineNumber": 1,
+              "startColumn": 1,
+              "endLineNumber": 63,
+              "endColumn": 1
+            }
+          }
+        },
+        {
+          "kind": "reference",
+          "reference": {
+            "uri": {
+              "$mid": 1,
+              "fsPath": "d:\\LUMIO_AI\\ritesh-chat-project-backend\\files\\controllers\\updatePassword.js",
+              "_sep": 1,
+              "external": "file:///d%3A/LUMIO_AI/ritesh-chat-project-backend/files/controllers/updatePassword.js",
+              "path": "/d:/LUMIO_AI/ritesh-chat-project-backend/files/controllers/updatePassword.js",
+              "scheme": "file"
+            },
+            "range": {
+              "startLineNumber": 1,
+              "startColumn": 1,
+              "endLineNumber": 54,
+              "endColumn": 1
+            }
+          }
+        },
+        {
+          "kind": "reference",
+          "reference": {
+            "uri": {
+              "$mid": 1,
+              "fsPath": "d:\\LUMIO_AI\\ritesh-chat-project-backend\\files\\controllers\\updateProfile.contriller.js",
+              "_sep": 1,
+              "external": "file:///d%3A/LUMIO_AI/ritesh-chat-project-backend/files/controllers/updateProfile.contriller.js",
+              "path": "/d:/LUMIO_AI/ritesh-chat-project-backend/files/controllers/updateProfile.contriller.js",
+              "scheme": "file"
+            },
+            "range": {
+              "startLineNumber": 1,
+              "startColumn": 1,
+              "endLineNumber": 44,
+              "endColumn": 1
+            }
+          }
+        },
+        {
+          "kind": "reference",
+          "reference": {
+            "uri": {
+              "$mid": 1,
+              "fsPath": "d:\\LUMIO_AI\\ritesh-chat-project-backend\\files\\controllers\\verifyUser.controller.js",
+              "_sep": 1,
+              "external": "file:///d%3A/LUMIO_AI/ritesh-chat-project-backend/files/controllers/verifyUser.controller.js",
+              "path": "/d:/LUMIO_AI/ritesh-chat-project-backend/files/controllers/verifyUser.controller.js",
+              "scheme": "file"
+            },
+            "range": {
+              "startLineNumber": 1,
+              "startColumn": 1,
+              "endLineNumber": 45,
+              "endColumn": 1
+            }
+          }
+        },
+        {
+          "kind": "reference",
+          "reference": {
+            "$mid": 1,
+            "fsPath": "d:\\LUMIO_AI\\ritesh-chat-project-backend\\files\\functions\\insertGroupMessage.js",
+            "_sep": 1,
+            "external": "file:///d%3A/LUMIO_AI/ritesh-chat-project-backend/files/functions/insertGroupMessage.js",
+            "path": "/d:/LUMIO_AI/ritesh-chat-project-backend/files/functions/insertGroupMessage.js",
+            "scheme": "file"
+          }
+        },
+        {
+          "kind": "reference",
+          "reference": {
+            "$mid": 1,
+            "fsPath": "d:\\LUMIO_AI\\ritesh-chat-project-backend\\files\\functions\\insertUserMessage.js",
+            "_sep": 1,
+            "external": "file:///d%3A/LUMIO_AI/ritesh-chat-project-backend/files/functions/insertUserMessage.js",
+            "path": "/d:/LUMIO_AI/ritesh-chat-project-backend/files/functions/insertUserMessage.js",
+            "scheme": "file"
+          }
+        },
+        {
+          "kind": "reference",
+          "reference": {
+            "uri": {
+              "$mid": 1,
+              "fsPath": "d:\\LUMIO_AI\\ritesh-chat-project-backend\\files\\routes\\user.route.js",
+              "_sep": 1,
+              "external": "file:///d%3A/LUMIO_AI/ritesh-chat-project-backend/files/routes/user.route.js",
+              "path": "/d:/LUMIO_AI/ritesh-chat-project-backend/files/routes/user.route.js",
+              "scheme": "file"
+            },
+            "range": {
+              "startLineNumber": 1,
+              "startColumn": 1,
+              "endLineNumber": 55,
+              "endColumn": 22
+            }
+          }
+        },
+        {
+          "kind": "reference",
+          "reference": {
+            "$mid": 1,
+            "fsPath": "d:\\LUMIO_AI\\ritesh-chat-project-backend\\files\\socket\\index.js",
+            "_sep": 1,
+            "external": "file:///d%3A/LUMIO_AI/ritesh-chat-project-backend/files/socket/index.js",
+            "path": "/d:/LUMIO_AI/ritesh-chat-project-backend/files/socket/index.js",
+            "scheme": "file"
+          }
+        },
+        {
+          "kind": "reference",
+          "reference": {
+            "$mid": 1,
+            "fsPath": "d:\\LUMIO_AI\\ritesh-chat-project-backend\\files\\utils\\genrateOtp.js",
+            "_sep": 1,
+            "external": "file:///d%3A/LUMIO_AI/ritesh-chat-project-backend/files/utils/genrateOtp.js",
+            "path": "/d:/LUMIO_AI/ritesh-chat-project-backend/files/utils/genrateOtp.js",
+            "scheme": "file"
+          }
+        },
+        {
+          "kind": "reference",
+          "reference": {
+            "$mid": 1,
+            "fsPath": "d:\\LUMIO_AI\\ritesh-chat-project-backend\\files\\utils\\prismaClient.js",
+            "_sep": 1,
+            "external": "file:///d%3A/LUMIO_AI/ritesh-chat-project-backend/files/utils/prismaClient.js",
+            "path": "/d:/LUMIO_AI/ritesh-chat-project-backend/files/utils/prismaClient.js",
+            "scheme": "file"
+          }
+        },
+        {
+          "kind": "reference",
+          "reference": {
+            "$mid": 1,
+            "fsPath": "d:\\LUMIO_AI\\ritesh-chat-project-backend\\files\\utils\\sendEmail.js",
+            "_sep": 1,
+            "external": "file:///d%3A/LUMIO_AI/ritesh-chat-project-backend/files/utils/sendEmail.js",
+            "path": "/d:/LUMIO_AI/ritesh-chat-project-backend/files/utils/sendEmail.js",
+            "scheme": "file"
+          }
+        },
+        {
+          "kind": "reference",
+          "reference": {
+            "uri": {
+              "$mid": 1,
+              "fsPath": "d:\\LUMIO_AI\\ritesh-chat-project-backend\\index.js",
+              "_sep": 1,
+              "external": "file:///d%3A/LUMIO_AI/ritesh-chat-project-backend/index.js",
+              "path": "/D:/LUMIO_AI/ritesh-chat-project-backend/index.js",
+              "scheme": "file"
+            },
+            "range": {
+              "startLineNumber": 1,
+              "startColumn": 1,
+              "endLineNumber": 56,
+              "endColumn": 5
+            }
+          }
+        },
+        {
+          "kind": "reference",
+          "reference": {
+            "uri": {
+              "$mid": 1,
+              "fsPath": "d:\\LUMIO_AI\\ritesh-chat-project-backend\\package.json",
+              "_sep": 1,
+              "external": "file:///d%3A/LUMIO_AI/ritesh-chat-project-backend/package.json",
+              "path": "/d:/LUMIO_AI/ritesh-chat-project-backend/package.json",
+              "scheme": "file"
+            },
+            "range": {
+              "startLineNumber": 1,
+              "startColumn": 1,
+              "endLineNumber": 31,
+              "endColumn": 1
+            }
+          }
+        },
+        {
+          "kind": "reference",
+          "reference": {
+            "uri": {
+              "$mid": 1,
+              "fsPath": "d:\\LUMIO_AI\\ritesh-chat-project-backend\\prisma\\migrations\\20241118093419_define_the_chat_schema\\migration.sql",
+              "_sep": 1,
+              "external": "file:///d%3A/LUMIO_AI/ritesh-chat-project-backend/prisma/migrations/20241118093419_define_the_chat_schema/migration.sql",
+              "path": "/d:/LUMIO_AI/ritesh-chat-project-backend/prisma/migrations/20241118093419_define_the_chat_schema/migration.sql",
+              "scheme": "file"
+            },
+            "range": {
+              "startLineNumber": 1,
+              "startColumn": 1,
+              "endLineNumber": 98,
+              "endColumn": 1
+            }
+          }
+        },
+        {
+          "kind": "reference",
+          "reference": {
+            "$mid": 1,
+            "fsPath": "d:\\LUMIO_AI\\ritesh-chat-project-backend\\prisma\\migrations\\20241118100126_updated_the_user_schema_some_filed_are_optional\\migration.sql",
+            "_sep": 1,
+            "external": "file:///d%3A/LUMIO_AI/ritesh-chat-project-backend/prisma/migrations/20241118100126_updated_the_user_schema_some_filed_are_optional/migration.sql",
+            "path": "/d:/LUMIO_AI/ritesh-chat-project-backend/prisma/migrations/20241118100126_updated_the_user_schema_some_filed_are_optional/migration.sql",
+            "scheme": "file"
+          }
+        },
+        {
+          "kind": "reference",
+          "reference": {
+            "$mid": 1,
+            "fsPath": "d:\\LUMIO_AI\\ritesh-chat-project-backend\\prisma\\migrations\\migration_lock.toml",
+            "_sep": 1,
+            "external": "file:///d%3A/LUMIO_AI/ritesh-chat-project-backend/prisma/migrations/migration_lock.toml",
+            "path": "/d:/LUMIO_AI/ritesh-chat-project-backend/prisma/migrations/migration_lock.toml",
+            "scheme": "file"
+          }
+        },
+        {
+          "kind": "reference",
+          "reference": {
+            "uri": {
+              "$mid": 1,
+              "fsPath": "d:\\LUMIO_AI\\ritesh-chat-project-backend\\prisma\\schema.prisma",
+              "_sep": 1,
+              "external": "file:///d%3A/LUMIO_AI/ritesh-chat-project-backend/prisma/schema.prisma",
+              "path": "/d:/LUMIO_AI/ritesh-chat-project-backend/prisma/schema.prisma",
+              "scheme": "file"
+            },
+            "range": {
+              "startLineNumber": 1,
+              "startColumn": 1,
+              "endLineNumber": 84,
+              "endColumn": 1
+            }
+          }
+        },
+        {
+          "kind": "reference",
+          "reference": {
+            "uri": {
+              "$mid": 1,
+              "fsPath": "d:\\LUMIO_AI\\ritesh-chat-project-backend\\README.md",
+              "_sep": 1,
+              "external": "file:///d%3A/LUMIO_AI/ritesh-chat-project-backend/README.md",
+              "path": "/d:/LUMIO_AI/ritesh-chat-project-backend/README.md",
+              "scheme": "file"
+            },
+            "range": {
+              "startLineNumber": 1,
+              "startColumn": 1,
+              "endLineNumber": 261,
+              "endColumn": 165
+            }
+          }
+        }
+      ],
+      "codeCitations": []
+    },
+    {
+      "message": {
+        "text": "write the entire docs in markdown",
+        "parts": [
+          {
+            "range": {
+              "start": 0,
+              "endExclusive": 33
+            },
+            "editorRange": {
+              "startLineNumber": 1,
+              "startColumn": 1,
+              "endLineNumber": 1,
+              "endColumn": 34
+            },
+            "text": "write the entire docs in markdown",
+            "kind": "text"
+          }
+        ]
+      },
+      "variableData": {
+        "variables": []
+      },
+      "response": [
+        {
+          "kind": "progressMessage",
+          "content": {
+            "value": "Collecting workspace information",
+            "uris": {}
+          }
+        },
+        {
+          "value": "Sure, here is the complete API documentation in Markdown format:\n\n# API Documentation\n\n## Base URL\n```\nhttp://<your-domain>/api/v1\n```\n\n## Endpoints\n\n### User Registration\n- **URL:** `/register`\n- **Method:** `POST`\n- **Description:** Registers a new user.\n- **Request Body:**\n  ```json\n  {\n    \"email\": \"user@example.com\",\n    \"password\": \"password123\"\n  }\n  ```\n- **Response:**\n  ```json\n  {\n    \"success\": true,\n    \"message\": \"User registered successfully\",\n    \"data\": {\n      \"email\": \"user@example.com\",\n      \"token\": \"jwt_token\",\n      \"otp\": \"123456\"\n    }\n  }\n  ```\n\n### User Login\n- **URL:** `/login`\n- **Method:** `POST`\n- **Description:** Logs in an existing user.\n- **Request Body:**\n  ```json\n  {\n    \"email\": \"user@example.com\",\n    \"password\": \"password123\"\n  }\n  ```\n- **Response:**\n  ```json\n  {\n    \"success\": true,\n    \"message\": \"User login successfully\",\n    \"data\": {\n      \"email\": \"user@example.com\",\n      \"token\": \"jwt_token\",\n      \"otp\": \"123456\",\n      \"isVerifyed\": false,\n      \"isTwoFactorEnabled\": true\n    }\n  }\n  ```\n\n### Forgot Password\n- **URL:** `/forgot-password`\n- **Method:** `POST`\n- **Description:** Sends a password reset email.\n- **Request Body:**\n  ```json\n  {\n    \"email\": \"user@example.com\"\n  }\n  ```\n- **Response:**\n  ```json\n  {\n    \"success\": true,\n    \"message\": \"forgot email sent successfully\",\n    \"data\": {\n      \"otp\": \"123456\",\n      \"token\": \"jwt_token\"\n    }\n  }\n  ```\n\n### Resend Email\n- **URL:** `/resend-email`\n- **Method:** `POST`\n- **Description:** Resends the verification email.\n- **Request Body:**\n  ```json\n  {\n    \"token\": \"jwt_token\"\n  }\n  ```\n- **Response:**\n  ```json\n  {\n    \"success\": true,\n    \"message\": \"otp sent successfully\",\n    \"data\": {\n      \"otp\": \"123456\",\n      \"email\": \"user@example.com\"\n    }\n  }\n  ```\n\n### Verify User\n- **URL:** `/verify-user`\n- **Method:** `POST`\n- **Description:** Verifies a user.\n- **Request Body:**\n  ```json\n  {\n    \"token\": \"jwt_token\"\n  }\n  ```\n- **Response:**\n  ```json\n  {\n    \"success\": true,\n    \"message\": \"verification successfully\",\n    \"data\": {\n      \"message\": \"verification updated\"\n    }\n  }\n  ```\n\n### Update Password\n- **URL:** `/update-password`\n- **Method:** `POST`\n- **Description:** Updates the user's password.\n- **Request Body:**\n  ```json\n  {\n    \"token\": \"jwt_token\",\n    \"password\": \"new_password\"\n  }\n  ```\n- **Response:**\n  ```json\n  {\n    \"success\": true,\n    \"message\": \"password updated successfully\",\n    \"data\": {\n      \"message\": \"password updated\"\n    }\n  }\n  ```\n\n### Update Profile\n- **URL:** `/update-profile`\n- **Method:** `POST`\n- **Description:** Updates the user's profile.\n- **Request Body:**\n  ```json\n  {\n    \"token\": \"jwt_token\",\n    \"profileImage\": \"new_image_url\",\n    \"about\": \"new_about\",\n    \"age\": 25,\n    \"userName\": \"new_username\"\n  }\n  ```\n- **Response:**\n  ```json\n  {\n    \"success\": true,\n    \"message\": \"profile update successfully\",\n    \"data\": {\n      \"profileImage\": \"new_image_url\",\n      \"about\": \"new_about\",\n      \"age\": 25,\n      \"userName\": \"new_username\"\n    }\n  }\n  ```\n\n### Get User Details\n- **URL:** `/get-user-details`\n- **Method:** `POST`\n- **Description:** Retrieves the user's details.\n- **Request Body:**\n  ```json\n  {\n    \"token\": \"jwt_token\"\n  }\n  ```\n- **Response:**\n  ```json\n  {\n    \"success\": true,\n    \"message\": \"profile update successfully\",\n    \"data\": {\n      \"email\": \"user@example.com\",\n      \"profileImage\": \"profile_image_url\",\n      \"about\": \"about\",\n      \"age\": 25,\n      \"userName\": \"username\"\n    }\n  }\n  ```\n\n### Send Friend Request\n- **URL:** `/sent-request`\n- **Method:** `POST`\n- **Description:** Sends a friend request.\n- **Request Body:**\n  ```json\n  {\n    \"token\": \"jwt_token\",\n    \"to\": \"user_id\"\n  }\n  ```\n- **Response:**\n  ```json\n  {\n    \"success\": true,\n    \"message\": \"Request sent successfully.\"\n  }\n  ```\n\n### Accept Friend Request\n- **URL:** `/accept-request`\n- **Method:** `POST`\n- **Description:** Accepts a friend request.\n- **Request Body:**\n  ```json\n  {\n    \"token\": \"jwt_token\",\n    \"to\": \"user_id\"\n  }\n  ```\n- **Response:**\n  ```json\n  {\n    \"success\": true,\n    \"message\": \"Request accepted successfully.\"\n  }\n  ```\n\n### Reject Friend Request\n- **URL:** `/reject-request`\n- **Method:** `POST`\n- **Description:** Rejects a friend request.\n- **Request Body:**\n  ```json\n  {\n    \"token\": \"jwt_token\",\n    \"to\": \"user_id\"\n  }\n  ```\n- **Response:**\n  ```json\n  {\n    \"success\": true,\n    \"message\": \"Request rejected successfully.\"\n  }\n  ```\n\n### Get All Sent Requests\n- **URL:** `/get-all-user-sent-requests`\n- **Method:** `POST`\n- **Description:** Retrieves all sent friend requests.\n- **Request Body:**\n  ```json\n  {\n    \"token\": \"jwt_token\"\n  }\n  ```\n- **Response:**\n  ```json\n  {\n    \"success\": true,\n    \"message\": \"Profile updated successfully\",\n    \"data\": [\n      {\n        \"id\": \"user_id\",\n        \"user_name\": \"username\",\n        \"about\": \"about\",\n        \"profile_image\": \"profile_image_url\"\n      }\n    ]\n  }\n  ```\n\n### Get All Accepted Requests\n- **URL:** `/get-all-users-accept-requests`\n- **Method:** `POST`\n- **Description:** Retrieves all accepted friend requests.\n- **Request Body:**\n  ```json\n  {\n    \"token\": \"jwt_token\"\n  }\n  ```\n- **Response:**\n  ```json\n  {\n    \"success\": true,\n    \"message\": \"Users list retrieved successfully\",\n    \"data\": [\n      {\n        \"id\": \"user_id\",\n        \"user_name\": \"username\",\n        \"about\": \"about\",\n        \"profile_image\": \"profile_image_url\"\n      }\n    ]\n  }\n  ```\n\n### Get All Friends\n- **URL:** `/get-all-friends`\n- **Method:** `POST`\n- **Description:** Retrieves all friends.\n- **Request Body:**\n  ```json\n  {\n    \"token\": \"jwt_token\"\n  }\n  ```\n- **Response:**\n  ```json\n  {\n    \"success\": true,\n    \"message\": \"Friends list retrieved successfully\",\n    \"data\": [\n      {\n        \"id\": \"user_id\",\n        \"user_name\": \"username\",\n        \"about\": \"about\",\n        \"profile_image\": \"profile_image_url\"\n      }\n    ]\n  }\n  ```\n\n### Create Group\n- **URL:** `/create-group`\n- **Method:** `POST`\n- **Description:** Creates a new group.\n- **Request Body:**\n  ```json\n  {\n    \"token\": \"jwt_token\",\n    \"groupName\": \"group_name\",\n    \"about\": \"group_about\",\n    \"profileImage\": \"group_profile_image\"\n  }\n  ```\n- **Response:**\n  ```json\n  {\n    \"success\": true,\n    \"message\": \"Group created successfully\"\n  }\n  ```\n\n### Join Group\n- **URL:** `/join-group`\n- **Method:** `POST`\n- **Description:** Joins an existing group.\n- **Request Body:**\n  ```json\n  {\n    \"token\": \"jwt_token\",\n    \"groupId\": \"group_id\"\n  }\n  ```\n- **Response:**\n  ```json\n  {\n    \"success\": true,\n    \"message\": \"Group joined successfully\"\n  }\n  ```\n\n### Get All Groups\n- **URL:** `/get-all-groups`\n- **Method:** `POST`\n- **Description:** Retrieves all groups the user is a member of.\n- **Request Body:**\n  ```json\n  {\n    \"token\": \"jwt_token\"\n  }\n  ```\n- **Response:**\n  ```json\n  {\n    \"success\": true,\n    \"message\": \"Groups retrieved successfully\",\n    \"data\": [\n      {\n        \"id\": \"group_id\",\n        \"groupName\": \"group_name\",\n        \"about\": \"group_about\",\n        \"profileImage\": \"group_profile_image\"\n      }\n    ]\n  }\n  ```\n\n### Get All Groups to Join\n- **URL:** `/get-all-groups-join`\n- **Method:** `POST`\n- **Description:** Retrieves all groups the user can join.\n- **Request Body:**\n  ```json\n  {\n    \"token\": \"jwt_token\"\n  }\n  ```\n- **Response:**\n  ```json\n  {\n    \"success\": true,\n    \"message\": \"Groups available to join\",\n    \"data\": [\n      {\n        \"id\": \"group_id\",\n        \"groupName\": \"group_name\",\n        \"about\": \"group_about\",\n        \"profileImage\": \"group_profile_image\"\n      }\n    ]\n  }\n  ```\n\n### Get Chat Details\n- **URL:** `/get-chat-details`\n- **Method:** `POST`\n- **Description:** Retrieves chat details for a user or group.\n- **Request Body:**\n  ```json\n  {\n    \"token\": \"jwt_token\",\n    \"chatId\": \"chat_id\",\n    \"chatType\": \"friend|group\"\n  }\n  ```\n- **Response:**\n  ```json\n  {\n    \"success\": true,\n    \"message\": \"Chat details retrieved successfully\",\n    \"data\": {\n      \"id\": \"chat_id\",\n      \"user_name\": \"username\",\n      \"about\": \"about\",\n      \"profile_image\": \"profile_image_url\"\n    },\n    \"userId\": \"user_id\"\n  }\n  ```\n\n### Get Messages\n- **URL:** `/get-messages`\n- **Method:** `POST`\n- **Description:** Retrieves messages for a user or group chat.\n- **Request Body:**\n  ```json\n  {\n    \"token\": \"jwt_token\",\n    \"chatId\": \"chat_id\",\n    \"chatType\": \"friend|group\"\n  }\n  ```\n- **Response:**\n  ```json\n  {\n    \"success\": true,\n    \"message\": \"Messages retrieved successfully\",\n    \"data\": [\n      {\n        \"from\": \"user_id\",\n        \"to\": \"chat_id\",\n        \"message\": \"message_content\",\n        \"messageType\": \"TEXT|IMAGE|VIDEO\",\n        \"createdAt\": \"timestamp\",\n        \"updatedAt\": \"timestamp\"\n      }\n    ]\n  }\n  ```\n\n## WebSocket Events\n\n### Send Message\n- **Event:** `sendMessage`\n- **Description:** Sends a message to a user or group.\n- **Payload:**\n  ```json\n  {\n    \"token\": \"jwt_token\",\n    \"to\": \"recipient_id\",\n    \"chatType\": \"friend|group\",\n    \"message\": \"message_content\",\n    \"messageType\": \"TEXT|IMAGE|VIDEO\"\n  }\n  ```\n- **Response:**\n  ```json\n  {\n    \"to\": \"recipient_id\",\n    \"from\": \"sender_id\"\n  }\n  ```\n\n### New Message\n- **Event:** `newMessage`\n- **Description:** Receives a new message notification.\n- **Payload:**\n  ```json\n  {\n    \"to\": \"recipient_id\",\n    \"from\": \"sender_id\"\n  }\n  ```\n\nThis documentation covers the main API endpoints and WebSocket events for your chat backend application.",
+          "supportThemeIcons": false,
+          "supportHtml": false
+        }
+      ],
+      "result": {
+        "timings": {
+          "firstProgress": 3564,
+          "totalElapsed": 94343
+        },
+        "metadata": {
+          "modelMessageId": "17cffc5c-4c7b-4ab4-b692-e545bb500cd0",
+          "responseId": "4871b928-3e18-4b2e-9e78-65a80da0b837",
+          "sessionId": "19429e09-06b6-46a7-8e60-37592cb0bccb",
+          "agentId": "github.copilot.workspace"
+        }
+      },
+      "followups": [],
+      "isCanceled": false,
+      "agent": {
+        "extensionId": {
+          "value": "GitHub.copilot-chat",
+          "_lower": "github.copilot-chat"
+        },
+        "publisherDisplayName": "GitHub",
+        "extensionPublisherId": "GitHub",
+        "extensionDisplayName": "GitHub Copilot Chat",
+        "id": "github.copilot.workspace",
+        "description": "Ask about your workspace",
+        "metadata": {
+          "sampleRequest": "How do I build this project?",
+          "themeIcon": {
+            "id": "code"
+          },
+          "hasFollowups": true,
+          "isSecondary": true,
+          "supportIssueReporting": false
+        },
+        "name": "workspace",
+        "fullName": "Workspace",
+        "locations": [
+          "panel"
+        ],
+        "slashCommands": [
+          {
+            "name": "explain",
+            "description": "Explain how the code in your active editor works"
+          },
+          {
+            "name": "tests",
+            "description": "Generate unit tests for the selected code"
+          },
+          {
+            "name": "fix",
+            "description": "Propose a fix for the problems in the selected code",
+            "sampleRequest": "There is a problem in this code. Rewrite the code to show it with the bug fixed."
+          },
+          {
+            "name": "new",
+            "description": "Scaffold code for a new file or project in a workspace",
+            "sampleRequest": "Create a RESTful API server using typescript",
+            "isSticky": true
+          },
+          {
+            "name": "newNotebook",
+            "description": "Create a new Jupyter Notebook",
+            "sampleRequest": "How do I create a notebook to load data from a csv file?"
+          },
+          {
+            "name": "fixTestFailure",
+            "description": "Propose a fix for the failing test",
+            "when": "config.github.copilot.chat.fixTestFailure.enabled"
+          },
+          {
+            "name": "setupTests",
+            "description": "Set up tests in your project (Experimental)",
+            "sampleRequest": "add playwright tests to my project",
+            "when": "config.github.copilot.chat.setupTests.enabled"
+          }
+        ],
+        "disambiguation": []
+      },
+      "contentReferences": [
+        {
+          "kind": "reference",
+          "reference": {
+            "$mid": 1,
+            "fsPath": "d:\\LUMIO_AI\\ritesh-chat-project-backend\\.gitignore",
+            "_sep": 1,
+            "external": "file:///d%3A/LUMIO_AI/ritesh-chat-project-backend/.gitignore",
+            "path": "/d:/LUMIO_AI/ritesh-chat-project-backend/.gitignore",
+            "scheme": "file"
+          }
+        },
+        {
+          "kind": "reference",
+          "reference": {
+            "uri": {
+              "$mid": 1,
+              "fsPath": "d:\\LUMIO_AI\\ritesh-chat-project-backend\\files\\controllers\\acceptRequest.controller.js",
+              "_sep": 1,
+              "external": "file:///d%3A/LUMIO_AI/ritesh-chat-project-backend/files/controllers/acceptRequest.controller.js",
+              "path": "/d:/LUMIO_AI/ritesh-chat-project-backend/files/controllers/acceptRequest.controller.js",
+              "scheme": "file"
+            },
+            "range": {
+              "startLineNumber": 1,
+              "startColumn": 1,
+              "endLineNumber": 64,
+              "endColumn": 1
+            }
+          }
+        },
+        {
+          "kind": "reference",
+          "reference": {
+            "uri": {
+              "$mid": 1,
+              "fsPath": "d:\\LUMIO_AI\\ritesh-chat-project-backend\\files\\controllers\\createGroup.controller.js",
+              "_sep": 1,
+              "external": "file:///d%3A/LUMIO_AI/ritesh-chat-project-backend/files/controllers/createGroup.controller.js",
+              "path": "/d:/LUMIO_AI/ritesh-chat-project-backend/files/controllers/createGroup.controller.js",
+              "scheme": "file"
+            },
+            "range": {
+              "startLineNumber": 1,
+              "startColumn": 1,
+              "endLineNumber": 56,
+              "endColumn": 1
+            }
+          }
+        },
+        {
+          "kind": "reference",
+          "reference": {
+            "uri": {
+              "$mid": 1,
+              "fsPath": "d:\\LUMIO_AI\\ritesh-chat-project-backend\\files\\controllers\\forgotPassword.controller.js",
+              "_sep": 1,
+              "external": "file:///d%3A/LUMIO_AI/ritesh-chat-project-backend/files/controllers/forgotPassword.controller.js",
+              "path": "/d:/LUMIO_AI/ritesh-chat-project-backend/files/controllers/forgotPassword.controller.js",
+              "scheme": "file"
+            },
+            "range": {
+              "startLineNumber": 1,
+              "startColumn": 1,
+              "endLineNumber": 57,
+              "endColumn": 1
+            }
+          }
+        },
+        {
+          "kind": "reference",
+          "reference": {
+            "uri": {
+              "$mid": 1,
+              "fsPath": "d:\\LUMIO_AI\\ritesh-chat-project-backend\\files\\controllers\\getAllFriends.controller.js",
+              "_sep": 1,
+              "external": "file:///d%3A/LUMIO_AI/ritesh-chat-project-backend/files/controllers/getAllFriends.controller.js",
+              "path": "/d:/LUMIO_AI/ritesh-chat-project-backend/files/controllers/getAllFriends.controller.js",
+              "scheme": "file"
+            },
+            "range": {
+              "startLineNumber": 1,
+              "startColumn": 1,
+              "endLineNumber": 68,
+              "endColumn": 1
+            }
+          }
+        },
+        {
+          "kind": "reference",
+          "reference": {
+            "uri": {
+              "$mid": 1,
+              "fsPath": "d:\\LUMIO_AI\\ritesh-chat-project-backend\\files\\controllers\\getAllGroups.controller.js",
+              "_sep": 1,
+              "external": "file:///d%3A/LUMIO_AI/ritesh-chat-project-backend/files/controllers/getAllGroups.controller.js",
+              "path": "/d:/LUMIO_AI/ritesh-chat-project-backend/files/controllers/getAllGroups.controller.js",
+              "scheme": "file"
+            },
+            "range": {
+              "startLineNumber": 1,
+              "startColumn": 1,
+              "endLineNumber": 54,
+              "endColumn": 1
+            }
+          }
+        },
+        {
+          "kind": "reference",
+          "reference": {
+            "uri": {
+              "$mid": 1,
+              "fsPath": "d:\\LUMIO_AI\\ritesh-chat-project-backend\\files\\controllers\\getAllGroupsJoin.controller.js",
+              "_sep": 1,
+              "external": "file:///d%3A/LUMIO_AI/ritesh-chat-project-backend/files/controllers/getAllGroupsJoin.controller.js",
+              "path": "/d:/LUMIO_AI/ritesh-chat-project-backend/files/controllers/getAllGroupsJoin.controller.js",
+              "scheme": "file"
+            },
+            "range": {
+              "startLineNumber": 1,
+              "startColumn": 1,
+              "endLineNumber": 54,
+              "endColumn": 1
+            }
+          }
+        },
+        {
+          "kind": "reference",
+          "reference": {
+            "uri": {
+              "$mid": 1,
+              "fsPath": "d:\\LUMIO_AI\\ritesh-chat-project-backend\\files\\controllers\\getAllUsersAcceptRequest.controller.js",
+              "_sep": 1,
+              "external": "file:///d%3A/LUMIO_AI/ritesh-chat-project-backend/files/controllers/getAllUsersAcceptRequest.controller.js",
+              "path": "/d:/LUMIO_AI/ritesh-chat-project-backend/files/controllers/getAllUsersAcceptRequest.controller.js",
+              "scheme": "file"
+            },
+            "range": {
+              "startLineNumber": 1,
+              "startColumn": 1,
+              "endLineNumber": 74,
+              "endColumn": 1
+            }
+          }
+        },
+        {
+          "kind": "reference",
+          "reference": {
+            "uri": {
+              "$mid": 1,
+              "fsPath": "d:\\LUMIO_AI\\ritesh-chat-project-backend\\files\\controllers\\getAllusersSentRequest.controller.js",
+              "_sep": 1,
+              "external": "file:///d%3A/LUMIO_AI/ritesh-chat-project-backend/files/controllers/getAllusersSentRequest.controller.js",
+              "path": "/d:/LUMIO_AI/ritesh-chat-project-backend/files/controllers/getAllusersSentRequest.controller.js",
+              "scheme": "file"
+            },
+            "range": {
+              "startLineNumber": 1,
+              "startColumn": 1,
+              "endLineNumber": 53,
+              "endColumn": 1
+            }
+          }
+        },
+        {
+          "kind": "reference",
+          "reference": {
+            "uri": {
+              "$mid": 1,
+              "fsPath": "d:\\LUMIO_AI\\ritesh-chat-project-backend\\files\\controllers\\getChatDetails.controller.js",
+              "_sep": 1,
+              "external": "file:///d%3A/LUMIO_AI/ritesh-chat-project-backend/files/controllers/getChatDetails.controller.js",
+              "path": "/d:/LUMIO_AI/ritesh-chat-project-backend/files/controllers/getChatDetails.controller.js",
+              "scheme": "file"
+            },
+            "range": {
+              "startLineNumber": 1,
+              "startColumn": 1,
+              "endLineNumber": 79,
+              "endColumn": 1
+            }
+          }
+        },
+        {
+          "kind": "reference",
+          "reference": {
+            "uri": {
+              "$mid": 1,
+              "fsPath": "d:\\LUMIO_AI\\ritesh-chat-project-backend\\files\\controllers\\getMessages.controller.js",
+              "_sep": 1,
+              "external": "file:///d%3A/LUMIO_AI/ritesh-chat-project-backend/files/controllers/getMessages.controller.js",
+              "path": "/d:/LUMIO_AI/ritesh-chat-project-backend/files/controllers/getMessages.controller.js",
+              "scheme": "file"
+            },
+            "range": {
+              "startLineNumber": 1,
+              "startColumn": 1,
+              "endLineNumber": 59,
+              "endColumn": 1
+            }
+          }
+        },
+        {
+          "kind": "reference",
+          "reference": {
+            "uri": {
+              "$mid": 1,
+              "fsPath": "d:\\LUMIO_AI\\ritesh-chat-project-backend\\files\\controllers\\getUserDetails.controller.js",
+              "_sep": 1,
+              "external": "file:///d%3A/LUMIO_AI/ritesh-chat-project-backend/files/controllers/getUserDetails.controller.js",
+              "path": "/d:/LUMIO_AI/ritesh-chat-project-backend/files/controllers/getUserDetails.controller.js",
+              "scheme": "file"
+            },
+            "range": {
+              "startLineNumber": 1,
+              "startColumn": 1,
+              "endLineNumber": 37,
+              "endColumn": 1
+            }
+          }
+        },
+        {
+          "kind": "reference",
+          "reference": {
+            "uri": {
+              "$mid": 1,
+              "fsPath": "d:\\LUMIO_AI\\ritesh-chat-project-backend\\files\\controllers\\joinGroup.controller.js",
+              "_sep": 1,
+              "external": "file:///d%3A/LUMIO_AI/ritesh-chat-project-backend/files/controllers/joinGroup.controller.js",
+              "path": "/d:/LUMIO_AI/ritesh-chat-project-backend/files/controllers/joinGroup.controller.js",
+              "scheme": "file"
+            },
+            "range": {
+              "startLineNumber": 1,
+              "startColumn": 1,
+              "endLineNumber": 63,
+              "endColumn": 1
+            }
+          }
+        },
+        {
+          "kind": "reference",
+          "reference": {
+            "uri": {
+              "$mid": 1,
+              "fsPath": "d:\\LUMIO_AI\\ritesh-chat-project-backend\\files\\controllers\\loginUser.controller.js",
+              "_sep": 1,
+              "external": "file:///d%3A/LUMIO_AI/ritesh-chat-project-backend/files/controllers/loginUser.controller.js",
+              "path": "/d:/LUMIO_AI/ritesh-chat-project-backend/files/controllers/loginUser.controller.js",
+              "scheme": "file"
+            },
+            "range": {
+              "startLineNumber": 1,
+              "startColumn": 1,
+              "endLineNumber": 69,
+              "endColumn": 1
+            }
+          }
+        },
+        {
+          "kind": "reference",
+          "reference": {
+            "uri": {
+              "$mid": 1,
+              "fsPath": "d:\\LUMIO_AI\\ritesh-chat-project-backend\\files\\controllers\\register.controller.js",
+              "_sep": 1,
+              "external": "file:///d%3A/LUMIO_AI/ritesh-chat-project-backend/files/controllers/register.controller.js",
+              "path": "/d:/LUMIO_AI/ritesh-chat-project-backend/files/controllers/register.controller.js",
+              "scheme": "file"
+            },
+            "range": {
+              "startLineNumber": 1,
+              "startColumn": 1,
+              "endLineNumber": 62,
+              "endColumn": 1
+            }
+          }
+        },
+        {
+          "kind": "reference",
+          "reference": {
+            "uri": {
+              "$mid": 1,
+              "fsPath": "d:\\LUMIO_AI\\ritesh-chat-project-backend\\files\\controllers\\rejectRequest.controller.js",
+              "_sep": 1,
+              "external": "file:///d%3A/LUMIO_AI/ritesh-chat-project-backend/files/controllers/rejectRequest.controller.js",
+              "path": "/d:/LUMIO_AI/ritesh-chat-project-backend/files/controllers/rejectRequest.controller.js",
+              "scheme": "file"
+            },
+            "range": {
+              "startLineNumber": 1,
+              "startColumn": 1,
+              "endLineNumber": 70,
+              "endColumn": 1
+            }
+          }
+        },
+        {
+          "kind": "reference",
+          "reference": {
+            "uri": {
+              "$mid": 1,
+              "fsPath": "d:\\LUMIO_AI\\ritesh-chat-project-backend\\files\\controllers\\resendEmail.controller.js",
+              "_sep": 1,
+              "external": "file:///d%3A/LUMIO_AI/ritesh-chat-project-backend/files/controllers/resendEmail.controller.js",
+              "path": "/d:/LUMIO_AI/ritesh-chat-project-backend/files/controllers/resendEmail.controller.js",
+              "scheme": "file"
+            },
+            "range": {
+              "startLineNumber": 1,
+              "startColumn": 1,
+              "endLineNumber": 41,
+              "endColumn": 3
+            }
+          }
+        },
+        {
+          "kind": "reference",
+          "reference": {
+            "uri": {
+              "$mid": 1,
+              "fsPath": "d:\\LUMIO_AI\\ritesh-chat-project-backend\\files\\controllers\\sendRequest.controller.js",
+              "_sep": 1,
+              "external": "file:///d%3A/LUMIO_AI/ritesh-chat-project-backend/files/controllers/sendRequest.controller.js",
+              "path": "/d:/LUMIO_AI/ritesh-chat-project-backend/files/controllers/sendRequest.controller.js",
+              "scheme": "file"
+            },
+            "range": {
+              "startLineNumber": 1,
+              "startColumn": 1,
+              "endLineNumber": 63,
+              "endColumn": 1
+            }
+          }
+        },
+        {
+          "kind": "reference",
+          "reference": {
+            "uri": {
+              "$mid": 1,
+              "fsPath": "d:\\LUMIO_AI\\ritesh-chat-project-backend\\files\\controllers\\updatePassword.js",
+              "_sep": 1,
+              "external": "file:///d%3A/LUMIO_AI/ritesh-chat-project-backend/files/controllers/updatePassword.js",
+              "path": "/d:/LUMIO_AI/ritesh-chat-project-backend/files/controllers/updatePassword.js",
+              "scheme": "file"
+            },
+            "range": {
+              "startLineNumber": 1,
+              "startColumn": 1,
+              "endLineNumber": 54,
+              "endColumn": 1
+            }
+          }
+        },
+        {
+          "kind": "reference",
+          "reference": {
+            "uri": {
+              "$mid": 1,
+              "fsPath": "d:\\LUMIO_AI\\ritesh-chat-project-backend\\files\\controllers\\updateProfile.contriller.js",
+              "_sep": 1,
+              "external": "file:///d%3A/LUMIO_AI/ritesh-chat-project-backend/files/controllers/updateProfile.contriller.js",
+              "path": "/d:/LUMIO_AI/ritesh-chat-project-backend/files/controllers/updateProfile.contriller.js",
+              "scheme": "file"
+            },
+            "range": {
+              "startLineNumber": 1,
+              "startColumn": 1,
+              "endLineNumber": 44,
+              "endColumn": 1
+            }
+          }
+        },
+        {
+          "kind": "reference",
+          "reference": {
+            "uri": {
+              "$mid": 1,
+              "fsPath": "d:\\LUMIO_AI\\ritesh-chat-project-backend\\files\\controllers\\verifyUser.controller.js",
+              "_sep": 1,
+              "external": "file:///d%3A/LUMIO_AI/ritesh-chat-project-backend/files/controllers/verifyUser.controller.js",
+              "path": "/d:/LUMIO_AI/ritesh-chat-project-backend/files/controllers/verifyUser.controller.js",
+              "scheme": "file"
+            },
+            "range": {
+              "startLineNumber": 1,
+              "startColumn": 1,
+              "endLineNumber": 45,
+              "endColumn": 1
+            }
+          }
+        },
+        {
+          "kind": "reference",
+          "reference": {
+            "$mid": 1,
+            "fsPath": "d:\\LUMIO_AI\\ritesh-chat-project-backend\\files\\functions\\insertGroupMessage.js",
+            "_sep": 1,
+            "external": "file:///d%3A/LUMIO_AI/ritesh-chat-project-backend/files/functions/insertGroupMessage.js",
+            "path": "/d:/LUMIO_AI/ritesh-chat-project-backend/files/functions/insertGroupMessage.js",
+            "scheme": "file"
+          }
+        },
+        {
+          "kind": "reference",
+          "reference": {
+            "$mid": 1,
+            "fsPath": "d:\\LUMIO_AI\\ritesh-chat-project-backend\\files\\functions\\insertUserMessage.js",
+            "_sep": 1,
+            "external": "file:///d%3A/LUMIO_AI/ritesh-chat-project-backend/files/functions/insertUserMessage.js",
+            "path": "/d:/LUMIO_AI/ritesh-chat-project-backend/files/functions/insertUserMessage.js",
+            "scheme": "file"
+          }
+        },
+        {
+          "kind": "reference",
+          "reference": {
+            "uri": {
+              "$mid": 1,
+              "fsPath": "d:\\LUMIO_AI\\ritesh-chat-project-backend\\files\\routes\\user.route.js",
+              "_sep": 1,
+              "external": "file:///d%3A/LUMIO_AI/ritesh-chat-project-backend/files/routes/user.route.js",
+              "path": "/d:/LUMIO_AI/ritesh-chat-project-backend/files/routes/user.route.js",
+              "scheme": "file"
+            },
+            "range": {
+              "startLineNumber": 1,
+              "startColumn": 1,
+              "endLineNumber": 55,
+              "endColumn": 22
+            }
+          }
+        },
+        {
+          "kind": "reference",
+          "reference": {
+            "$mid": 1,
+            "fsPath": "d:\\LUMIO_AI\\ritesh-chat-project-backend\\files\\socket\\index.js",
+            "_sep": 1,
+            "external": "file:///d%3A/LUMIO_AI/ritesh-chat-project-backend/files/socket/index.js",
+            "path": "/d:/LUMIO_AI/ritesh-chat-project-backend/files/socket/index.js",
+            "scheme": "file"
+          }
+        },
+        {
+          "kind": "reference",
+          "reference": {
+            "$mid": 1,
+            "fsPath": "d:\\LUMIO_AI\\ritesh-chat-project-backend\\files\\utils\\genrateOtp.js",
+            "_sep": 1,
+            "external": "file:///d%3A/LUMIO_AI/ritesh-chat-project-backend/files/utils/genrateOtp.js",
+            "path": "/d:/LUMIO_AI/ritesh-chat-project-backend/files/utils/genrateOtp.js",
+            "scheme": "file"
+          }
+        },
+        {
+          "kind": "reference",
+          "reference": {
+            "$mid": 1,
+            "fsPath": "d:\\LUMIO_AI\\ritesh-chat-project-backend\\files\\utils\\prismaClient.js",
+            "_sep": 1,
+            "external": "file:///d%3A/LUMIO_AI/ritesh-chat-project-backend/files/utils/prismaClient.js",
+            "path": "/d:/LUMIO_AI/ritesh-chat-project-backend/files/utils/prismaClient.js",
+            "scheme": "file"
+          }
+        },
+        {
+          "kind": "reference",
+          "reference": {
+            "$mid": 1,
+            "fsPath": "d:\\LUMIO_AI\\ritesh-chat-project-backend\\files\\utils\\sendEmail.js",
+            "_sep": 1,
+            "external": "file:///d%3A/LUMIO_AI/ritesh-chat-project-backend/files/utils/sendEmail.js",
+            "path": "/d:/LUMIO_AI/ritesh-chat-project-backend/files/utils/sendEmail.js",
+            "scheme": "file"
+          }
+        },
+        {
+          "kind": "reference",
+          "reference": {
+            "uri": {
+              "$mid": 1,
+              "fsPath": "d:\\LUMIO_AI\\ritesh-chat-project-backend\\index.js",
+              "_sep": 1,
+              "external": "file:///d%3A/LUMIO_AI/ritesh-chat-project-backend/index.js",
+              "path": "/D:/LUMIO_AI/ritesh-chat-project-backend/index.js",
+              "scheme": "file"
+            },
+            "range": {
+              "startLineNumber": 1,
+              "startColumn": 1,
+              "endLineNumber": 56,
+              "endColumn": 5
+            }
+          }
+        },
+        {
+          "kind": "reference",
+          "reference": {
+            "uri": {
+              "$mid": 1,
+              "fsPath": "d:\\LUMIO_AI\\ritesh-chat-project-backend\\package.json",
+              "_sep": 1,
+              "external": "file:///d%3A/LUMIO_AI/ritesh-chat-project-backend/package.json",
+              "path": "/d:/LUMIO_AI/ritesh-chat-project-backend/package.json",
+              "scheme": "file"
+            },
+            "range": {
+              "startLineNumber": 1,
+              "startColumn": 1,
+              "endLineNumber": 31,
+              "endColumn": 1
+            }
+          }
+        },
+        {
+          "kind": "reference",
+          "reference": {
+            "uri": {
+              "$mid": 1,
+              "fsPath": "d:\\LUMIO_AI\\ritesh-chat-project-backend\\prisma\\migrations\\20241118093419_define_the_chat_schema\\migration.sql",
+              "_sep": 1,
+              "external": "file:///d%3A/LUMIO_AI/ritesh-chat-project-backend/prisma/migrations/20241118093419_define_the_chat_schema/migration.sql",
+              "path": "/d:/LUMIO_AI/ritesh-chat-project-backend/prisma/migrations/20241118093419_define_the_chat_schema/migration.sql",
+              "scheme": "file"
+            },
+            "range": {
+              "startLineNumber": 1,
+              "startColumn": 1,
+              "endLineNumber": 98,
+              "endColumn": 1
+            }
+          }
+        },
+        {
+          "kind": "reference",
+          "reference": {
+            "$mid": 1,
+            "fsPath": "d:\\LUMIO_AI\\ritesh-chat-project-backend\\prisma\\migrations\\20241118100126_updated_the_user_schema_some_filed_are_optional\\migration.sql",
+            "_sep": 1,
+            "external": "file:///d%3A/LUMIO_AI/ritesh-chat-project-backend/prisma/migrations/20241118100126_updated_the_user_schema_some_filed_are_optional/migration.sql",
+            "path": "/d:/LUMIO_AI/ritesh-chat-project-backend/prisma/migrations/20241118100126_updated_the_user_schema_some_filed_are_optional/migration.sql",
+            "scheme": "file"
+          }
+        },
+        {
+          "kind": "reference",
+          "reference": {
+            "$mid": 1,
+            "fsPath": "d:\\LUMIO_AI\\ritesh-chat-project-backend\\prisma\\migrations\\migration_lock.toml",
+            "_sep": 1,
+            "external": "file:///d%3A/LUMIO_AI/ritesh-chat-project-backend/prisma/migrations/migration_lock.toml",
+            "path": "/d:/LUMIO_AI/ritesh-chat-project-backend/prisma/migrations/migration_lock.toml",
+            "scheme": "file"
+          }
+        },
+        {
+          "kind": "reference",
+          "reference": {
+            "uri": {
+              "$mid": 1,
+              "fsPath": "d:\\LUMIO_AI\\ritesh-chat-project-backend\\prisma\\schema.prisma",
+              "_sep": 1,
+              "external": "file:///d%3A/LUMIO_AI/ritesh-chat-project-backend/prisma/schema.prisma",
+              "path": "/d:/LUMIO_AI/ritesh-chat-project-backend/prisma/schema.prisma",
+              "scheme": "file"
+            },
+            "range": {
+              "startLineNumber": 1,
+              "startColumn": 1,
+              "endLineNumber": 84,
+              "endColumn": 1
+            }
+          }
+        },
+        {
+          "kind": "reference",
+          "reference": {
+            "uri": {
+              "$mid": 1,
+              "fsPath": "d:\\LUMIO_AI\\ritesh-chat-project-backend\\README.md",
+              "_sep": 1,
+              "external": "file:///d%3A/LUMIO_AI/ritesh-chat-project-backend/README.md",
+              "path": "/d:/LUMIO_AI/ritesh-chat-project-backend/README.md",
+              "scheme": "file"
+            },
+            "range": {
+              "startLineNumber": 1,
+              "startColumn": 1,
+              "endLineNumber": 261,
+              "endColumn": 165
+            }
+          }
+        }
+      ],
+      "codeCitations": []
+    }
+  ]
+}

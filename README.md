@@ -107,7 +107,526 @@ To deploy this application in a Docker container:
 
    bash
    docker run -p 2001:2001 --env-file .env chat-backend:latest
-   
+---
+# API Documentation
+
+## Base URL
+```
+http://<your-domain>/api/v1
+```
+
+## Endpoints
+
+### User Registration
+- **URL:** `/register`
+- **Method:** `POST`
+- **Description:** Registers a new user.
+- **Request Body:**
+  ```json
+  {
+    "email": "user@example.com",
+    "password": "password123"
+  }
+  ```
+- **Response:**
+  ```json
+  {
+    "success": true,
+    "message": "User registered successfully",
+    "data": {
+      "email": "user@example.com",
+      "token": "jwt_token",
+      "otp": "123456"
+    }
+  }
+  ```
+
+### User Login
+- **URL:** `/login`
+- **Method:** `POST`
+- **Description:** Logs in an existing user.
+- **Request Body:**
+  ```json
+  {
+    "email": "user@example.com",
+    "password": "password123"
+  }
+  ```
+- **Response:**
+  ```json
+  {
+    "success": true,
+    "message": "User login successfully",
+    "data": {
+      "email": "user@example.com",
+      "token": "jwt_token",
+      "otp": "123456",
+      "isVerifyed": false,
+      "isTwoFactorEnabled": true
+    }
+  }
+  ```
+
+### Forgot Password
+- **URL:** `/forgot-password`
+- **Method:** `POST`
+- **Description:** Sends a password reset email.
+- **Request Body:**
+  ```json
+  {
+    "email": "user@example.com"
+  }
+  ```
+- **Response:**
+  ```json
+  {
+    "success": true,
+    "message": "forgot email sent successfully",
+    "data": {
+      "otp": "123456",
+      "token": "jwt_token"
+    }
+  }
+  ```
+
+### Resend Email
+- **URL:** `/resend-email`
+- **Method:** `POST`
+- **Description:** Resends the verification email.
+- **Request Body:**
+  ```json
+  {
+    "token": "jwt_token"
+  }
+  ```
+- **Response:**
+  ```json
+  {
+    "success": true,
+    "message": "otp sent successfully",
+    "data": {
+      "otp": "123456",
+      "email": "user@example.com"
+    }
+  }
+  ```
+
+### Verify User
+- **URL:** `/verify-user`
+- **Method:** `POST`
+- **Description:** Verifies a user.
+- **Request Body:**
+  ```json
+  {
+    "token": "jwt_token"
+  }
+  ```
+- **Response:**
+  ```json
+  {
+    "success": true,
+    "message": "verification successfully",
+    "data": {
+      "message": "verification updated"
+    }
+  }
+  ```
+
+### Update Password
+- **URL:** `/update-password`
+- **Method:** `POST`
+- **Description:** Updates the user's password.
+- **Request Body:**
+  ```json
+  {
+    "token": "jwt_token",
+    "password": "new_password"
+  }
+  ```
+- **Response:**
+  ```json
+  {
+    "success": true,
+    "message": "password updated successfully",
+    "data": {
+      "message": "password updated"
+    }
+  }
+  ```
+
+### Update Profile
+- **URL:** `/update-profile`
+- **Method:** `POST`
+- **Description:** Updates the user's profile.
+- **Request Body:**
+  ```json
+  {
+    "token": "jwt_token",
+    "profileImage": "new_image_url",
+    "about": "new_about",
+    "age": 25,
+    "userName": "new_username"
+  }
+  ```
+- **Response:**
+  ```json
+  {
+    "success": true,
+    "message": "profile update successfully",
+    "data": {
+      "profileImage": "new_image_url",
+      "about": "new_about",
+      "age": 25,
+      "userName": "new_username"
+    }
+  }
+  ```
+
+### Get User Details
+- **URL:** `/get-user-details`
+- **Method:** `POST`
+- **Description:** Retrieves the user's details.
+- **Request Body:**
+  ```json
+  {
+    "token": "jwt_token"
+  }
+  ```
+- **Response:**
+  ```json
+  {
+    "success": true,
+    "message": "profile update successfully",
+    "data": {
+      "email": "user@example.com",
+      "profileImage": "profile_image_url",
+      "about": "about",
+      "age": 25,
+      "userName": "username"
+    }
+  }
+  ```
+
+### Send Friend Request
+- **URL:** `/sent-request`
+- **Method:** `POST`
+- **Description:** Sends a friend request.
+- **Request Body:**
+  ```json
+  {
+    "token": "jwt_token",
+    "to": "user_id"
+  }
+  ```
+- **Response:**
+  ```json
+  {
+    "success": true,
+    "message": "Request sent successfully."
+  }
+  ```
+
+### Accept Friend Request
+- **URL:** `/accept-request`
+- **Method:** `POST`
+- **Description:** Accepts a friend request.
+- **Request Body:**
+  ```json
+  {
+    "token": "jwt_token",
+    "to": "user_id"
+  }
+  ```
+- **Response:**
+  ```json
+  {
+    "success": true,
+    "message": "Request accepted successfully."
+  }
+  ```
+
+### Reject Friend Request
+- **URL:** `/reject-request`
+- **Method:** `POST`
+- **Description:** Rejects a friend request.
+- **Request Body:**
+  ```json
+  {
+    "token": "jwt_token",
+    "to": "user_id"
+  }
+  ```
+- **Response:**
+  ```json
+  {
+    "success": true,
+    "message": "Request rejected successfully."
+  }
+  ```
+
+### Get All Sent Requests
+- **URL:** `/get-all-user-sent-requests`
+- **Method:** `POST`
+- **Description:** Retrieves all sent friend requests.
+- **Request Body:**
+  ```json
+  {
+    "token": "jwt_token"
+  }
+  ```
+- **Response:**
+  ```json
+  {
+    "success": true,
+    "message": "Profile updated successfully",
+    "data": [
+      {
+        "id": "user_id",
+        "user_name": "username",
+        "about": "about",
+        "profile_image": "profile_image_url"
+      }
+    ]
+  }
+  ```
+
+### Get All Accepted Requests
+- **URL:** `/get-all-users-accept-requests`
+- **Method:** `POST`
+- **Description:** Retrieves all accepted friend requests.
+- **Request Body:**
+  ```json
+  {
+    "token": "jwt_token"
+  }
+  ```
+- **Response:**
+  ```json
+  {
+    "success": true,
+    "message": "Users list retrieved successfully",
+    "data": [
+      {
+        "id": "user_id",
+        "user_name": "username",
+        "about": "about",
+        "profile_image": "profile_image_url"
+      }
+    ]
+  }
+  ```
+
+### Get All Friends
+- **URL:** `/get-all-friends`
+- **Method:** `POST`
+- **Description:** Retrieves all friends.
+- **Request Body:**
+  ```json
+  {
+    "token": "jwt_token"
+  }
+  ```
+- **Response:**
+  ```json
+  {
+    "success": true,
+    "message": "Friends list retrieved successfully",
+    "data": [
+      {
+        "id": "user_id",
+        "user_name": "username",
+        "about": "about",
+        "profile_image": "profile_image_url"
+      }
+    ]
+  }
+  ```
+
+### Create Group
+- **URL:** `/create-group`
+- **Method:** `POST`
+- **Description:** Creates a new group.
+- **Request Body:**
+  ```json
+  {
+    "token": "jwt_token",
+    "groupName": "group_name",
+    "about": "group_about",
+    "profileImage": "group_profile_image"
+  }
+  ```
+- **Response:**
+  ```json
+  {
+    "success": true,
+    "message": "Group created successfully"
+  }
+  ```
+
+### Join Group
+- **URL:** `/join-group`
+- **Method:** `POST`
+- **Description:** Joins an existing group.
+- **Request Body:**
+  ```json
+  {
+    "token": "jwt_token",
+    "groupId": "group_id"
+  }
+  ```
+- **Response:**
+  ```json
+  {
+    "success": true,
+    "message": "Group joined successfully"
+  }
+  ```
+
+### Get All Groups
+- **URL:** `/get-all-groups`
+- **Method:** `POST`
+- **Description:** Retrieves all groups the user is a member of.
+- **Request Body:**
+  ```json
+  {
+    "token": "jwt_token"
+  }
+  ```
+- **Response:**
+  ```json
+  {
+    "success": true,
+    "message": "Groups retrieved successfully",
+    "data": [
+      {
+        "id": "group_id",
+        "groupName": "group_name",
+        "about": "group_about",
+        "profileImage": "group_profile_image"
+      }
+    ]
+  }
+  ```
+
+### Get All Groups to Join
+- **URL:** `/get-all-groups-join`
+- **Method:** `POST`
+- **Description:** Retrieves all groups the user can join.
+- **Request Body:**
+  ```json
+  {
+    "token": "jwt_token"
+  }
+  ```
+- **Response:**
+  ```json
+  {
+    "success": true,
+    "message": "Groups available to join",
+    "data": [
+      {
+        "id": "group_id",
+        "groupName": "group_name",
+        "about": "group_about",
+        "profileImage": "group_profile_image"
+      }
+    ]
+  }
+  ```
+
+### Get Chat Details
+- **URL:** `/get-chat-details`
+- **Method:** `POST`
+- **Description:** Retrieves chat details for a user or group.
+- **Request Body:**
+  ```json
+  {
+    "token": "jwt_token",
+    "chatId": "chat_id",
+    "chatType": "friend|group"
+  }
+  ```
+- **Response:**
+  ```json
+  {
+    "success": true,
+    "message": "Chat details retrieved successfully",
+    "data": {
+      "id": "chat_id",
+      "user_name": "username",
+      "about": "about",
+      "profile_image": "profile_image_url"
+    },
+    "userId": "user_id"
+  }
+  ```
+
+### Get Messages
+- **URL:** `/get-messages`
+- **Method:** `POST`
+- **Description:** Retrieves messages for a user or group chat.
+- **Request Body:**
+  ```json
+  {
+    "token": "jwt_token",
+    "chatId": "chat_id",
+    "chatType": "friend|group"
+  }
+  ```
+- **Response:**
+  ```json
+  {
+    "success": true,
+    "message": "Messages retrieved successfully",
+    "data": [
+      {
+        "from": "user_id",
+        "to": "chat_id",
+        "message": "message_content",
+        "messageType": "TEXT|IMAGE|VIDEO",
+        "createdAt": "timestamp",
+        "updatedAt": "timestamp"
+      }
+    ]
+  }
+  ```
+
+## WebSocket Events
+
+### Send Message
+- **Event:** `sendMessage`
+- **Description:** Sends a message to a user or group.
+- **Payload:**
+  ```json
+  {
+    "token": "jwt_token",
+    "to": "recipient_id",
+    "chatType": "friend|group",
+    "message": "message_content",
+    "messageType": "TEXT|IMAGE|VIDEO"
+  }
+  ```
+- **Response:**
+  ```json
+  {
+    "to": "recipient_id",
+    "from": "sender_id"
+  }
+  ```
+
+### New Message
+- **Event:** `newMessage`
+- **Description:** Receives a new message notification.
+- **Payload:**
+  ```json
+  {
+    "to": "recipient_id",
+    "from": "sender_id"
+  }
+  ```
+
+This documentation covers the main API endpoints and WebSocket events for your chat backend application.
+
 
 ---
 

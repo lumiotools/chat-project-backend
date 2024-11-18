@@ -1,36 +1,48 @@
-import MessageModel from "../../files/models/message.model.js"; // Import your Mongoose model
+import { prisma } from "../../files/utils/prismaClient.js"; // Adjust the path as needed
 
-export  async function insertUserMessage(from, to, message, messageType = "text") {
+export async function insertUserMessage(from, to, message, messageType = "TEXT") {
   try {
-    // Check if a message document already exists between 'from' and 'to'
-    let existingMessage = await MessageModel.findOne({
-      $or: [
-        { from, to },
-        { from:to, to:from },
-      ],
+    // Check if a conversation already exists between 'from' and 'to'
+    const existingMessage = await prisma.message.findFirst({
+      where: {
+        OR: [
+          { from, to },
+          { from: to, to: from },
+        ],
+      },
     });
 
     if (existingMessage) {
-      // If the message document exists, push the new message into the 'messages' array
-      existingMessage.messages.push({ message, messageType ,from});
-      await existingMessage.save();
+      // If the conversation exists, update it with the new message
+      await prisma.message.update({
+        where: { id: existingMessage.id },
+        data: {
+          messages: {
+            push: { from, message, messageType }, // Push the new message to the 'messages' field
+          },
+        },
+      });
+
       return {
         success: true,
         message: "Message added to existing conversation.",
       };
     } else {
-      // If no message document exists, create a new one
-      const newMessage = new MessageModel({
-        from,
-        to,
-        messages: [{ message, messageType, from }],
+      // If no conversation exists, create a new one
+      await prisma.message.create({
+        data: {
+          from,
+          to,
+          messages: [{ from, message, messageType }],
+        },
       });
-      await newMessage.save();
-      return { success: true, message: "New conversation created." };
+
+      return {
+        success: true,
+        message: "New conversation created.",
+      };
     }
   } catch (error) {
     return { success: false, error: error.message };
   }
 }
-
-

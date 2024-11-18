@@ -1,27 +1,35 @@
-import GroupModel from "../../files/models/group.model.js";
+import { prisma } from "../../files/utils/prismaClient.js";
 
-export async function insertGroupMessage(groupId, from, message, messageType = "text") {
+export async function insertGroupMessage(groupId, from, message, messageType = "TEXT") {
   try {
     // Check if the group exists
-    const group = await GroupModel.findById(groupId);
+    const group = await prisma.group.findUnique({
+      where: { id: groupId },
+      include: { members: true }, // Include members to check user membership
+    });
 
     if (!group) {
       return { success: false, message: "Group not found." };
     }
 
     // Check if the 'from' user is a member of the group
-    if (!group.members.includes(from)) {
+    const isMember = group.members.some((member) => member.id === from);
+    if (!isMember) {
       return { success: false, message: "User is not a member of the group." };
     }
 
-    // Push the new message into the 'messages' array
-    group.messages.push({ message, from, messageType });
-    await group.save();
+    // Add the new message to the group's messages
+    await prisma.groupMessages.create({
+      data: {
+        from,
+        to: groupId,
+        message,
+        message_type:messageType,
+      },
+    });
 
     return { success: true, message: "Message added to the group." };
   } catch (error) {
     return { success: false, error: error.message };
   }
 }
-
-

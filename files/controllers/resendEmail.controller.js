@@ -1,14 +1,14 @@
-import userModel from "../models/user.model.js";
 import jwt from "jsonwebtoken";
 import { sendEmail } from "../utils/sendEmail.js";
 import { generateOTP } from "../utils/genrateOtp.js";
+import { prisma } from "../utils/prismaClient.js";
 
 export const resendEmailController = async(req, res) => {
     try {
         const { token } = req.body;
         console.log(process.env.SECRET_KEY)
         const decodedToken =  jwt.verify(token,process.env.SECRET_KEY);
-        const id = decodedToken._id;
+        const id = decodedToken.id;
         console.log("id : ",id);
         
         // check if user details is passed or not
@@ -19,7 +19,11 @@ export const resendEmailController = async(req, res) => {
         let DBUser;
       
         
-          DBUser = await userModel.findOne({ _id: id });
+          DBUser = await prisma.user.findUnique({
+            where:{
+                id
+            }
+          });
      
       
         if (!DBUser) {
@@ -28,7 +32,7 @@ export const resendEmailController = async(req, res) => {
       
         //   sent user verification email
         const otp = generateOTP();
-        const emailData =  sendEmail(DBUser.email,otp);
+         sendEmail(DBUser.email,otp);
         res.status(200).json({sucess:true,message:"otp sent successfully",data:{ otp, email: DBUser.email }});
     } catch (error) {
         console.log(error)

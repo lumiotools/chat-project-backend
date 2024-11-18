@@ -46,7 +46,7 @@ io.on("connection", (socket) => {
   socket.on("sendMessage", async(data) => {
     const { token, to, chatType, message, messageType } = data;
      const decodedData = jwt.verify(token, process.env.SECRET_KEY);
-    const from = decodedData._id;  
+    const from = decodedData.id;  
     if (chatType === "friend") {
       await insertUserMessage(from, to, message, messageType);
     } else if (chatType === "group") {

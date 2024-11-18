@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-import userModel from "../models/user.model.js";
+import { prisma } from "../utils/prismaClient.js";
 export const getUserDetailController = async (req, res) => {
   try {
     const { token } = req.body;
@@ -7,10 +7,12 @@ export const getUserDetailController = async (req, res) => {
      return res.status(400).json({ sucess: false, message: "User Not Login" });
     }
     const decodedData = jwt.verify(token, process.env.SECRET_KEY);
-    const id = decodedData._id;
-    let DBUser;
-
-    DBUser = await userModel.findOne({ _id: id });
+    const id = decodedData.id;
+   const DBUser = await prisma.user.findUnique({
+    where:{
+      id
+    }
+   })
 
     if (!DBUser) {
       return  res.status(400).json({ sucess: false, message: "user not found" });
@@ -21,10 +23,10 @@ export const getUserDetailController = async (req, res) => {
       message: "profile update  successfully",
       data: {
         email: DBUser?.email,
-        profileImage: DBUser?.profileImage,
+        profileImage: DBUser?.profile_image,
         about: DBUser?.about,
         age: DBUser?.age,
-        userName: DBUser?.userName,
+        userName: DBUser?.user_name,
       },
     });
   } catch (error) {

@@ -1,41 +1,62 @@
-import User from "../models/user.model.js";
-import Request from "../models/request.model.js";
 import jwt from "jsonwebtoken";
+import { prisma } from "../utils/prismaClient.js";
 
 export const sendRequestController = async (req, res) => {
   try {
     const { token, to } = req.body;
-    const decodedToken = jwt.verify(token, process.env.SECRET_KEY);
-    const from = decodedToken._id;
 
-    // check if user details is passed or not
+    // Verify the token and extract the sender's ID
+    const decodedToken = jwt.verify(token, process.env.SECRET_KEY);
+    const from = decodedToken?.id;
+
+    // Validate the `from` and `to` fields
     if (!from || !to) {
-      res
-        .status(404)
-        .json({ sucess: false, message: "please provide user id" });
+      return res.status(400).json({
+        success: false,
+        message: "Sender and receiver details are required.",
+      });
+    }
+
+    // Check if `from` and `to` are the same
+    if (from === to) {
+      return res.status(400).json({
+        success: false,
+        message: "Sender and receiver cannot be the same.",
+      });
     }
 
     // Check if the request has already been sent
-    const existingRequest = await Request.findOne({
-      from,
-      to,
+    const existingRequest = await prisma.request.findFirst({
+      where: {
+        from,
+        to,
+      },
     });
+
     if (existingRequest) {
-      return res
-        .status(400)
-        .json({ sucess: false, message: "Request has already been sent." });
+      return res.status(400).json({
+        success: false,
+        message: "Request has already been sent.",
+      });
     }
 
-    // Create a new request
-    const newRequest = new Request({ from, to });
-    await newRequest.save();
+    // Create and save the new request
+    await prisma.request.create({
+      data: {
+        from,
+        to,
+      },
+    });
 
     res.status(200).json({
-      sucess: true,
+      success: true,
       message: "Request sent successfully.",
     });
   } catch (error) {
-    console.log(error);
-    res.status(500).json({ sucess: false, message: "Internal server error" });
+    console.error(error);
+    res.status(500).json({
+      success: false,
+      message: "Internal server error",
+    });
   }
 };

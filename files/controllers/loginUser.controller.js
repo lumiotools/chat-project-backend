@@ -1,8 +1,8 @@
 import bcrypt from "bcryptjs";
-import userModel from "../models/user.model.js";
 import jwt from "jsonwebtoken";
 import { sendEmail } from "../utils/sendEmail.js";
 import { generateOTP } from "../utils/genrateOtp.js";
+import { prisma } from "../utils/prismaClient.js";
 
 export const loginController = async (req, res) => {
   try {
@@ -15,17 +15,19 @@ export const loginController = async (req, res) => {
       return;
     }
 
-    let DBUser;
 
-   
-      DBUser = await userModel.findOne({ email });
+    const DBUser = await prisma.user.findUnique({
+      where:{
+        email
+      }
+    });
     
 
     // check if user is already registered or not
     if (!DBUser) {
       res
         .status(404)
-        .json({ sucess: false, message: "user already not exists" });
+        .json({ sucess: false, message: "user not exists" });
       return;
     }
 
@@ -44,7 +46,7 @@ export const loginController = async (req, res) => {
       DBUser.otp = otp;
     }
     const token = jwt.sign(
-      { _id: DBUser._id, email: DBUser.email },
+      { id: DBUser.id, email: DBUser.email },
       process.env.SECRET_KEY
     );
     DBUser.token = token;

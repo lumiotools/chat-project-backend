@@ -1,7 +1,7 @@
-import userModel from "../models/user.model.js";
 import jwt from "jsonwebtoken";
 import { sendEmail } from "../utils/sendEmail.js";
 import { generateOTP } from "../utils/genrateOtp.js";
+import { prisma } from "../utils/prismaClient.js";
 
 export const forgotPasswordController = async (req, res) => {
   try {
@@ -16,7 +16,11 @@ export const forgotPasswordController = async (req, res) => {
 
 
 
-     const DBUser = await userModel.findOne({ email });
+     const DBUser = await prisma.user.findUnique({
+      where:{
+        email
+      }
+     })
   
 
     // check if user is already registered or not

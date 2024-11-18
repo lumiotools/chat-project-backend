@@ -1,35 +1,53 @@
 import jwt from "jsonwebtoken";
-import GroupModel from "../models/group.model.js";
+import { prisma } from "../utils/prismaClient.js";
+
 export const getAllGroupJoinController = async (req, res) => {
   try {
     const { token } = req.body;
 
     if (!token) {
-      res.status(400).json({ sucess: false, message: "User Not Login" });
-      return;
+      return res.status(400).json({
+        success: false,
+        message: "User not logged in",
+      });
     }
 
+    // Verify the token and extract the user ID
     const decodedData = jwt.verify(token, process.env.SECRET_KEY);
-    const userId = decodedData._id;
+    const userId = decodedData.id;
 
-    // Find all groups where the user is a member
-    const groups = await GroupModel.find({ members: { $nin: [userId] } });
+    // Find all groups where the user is NOT a member
+    const groups = await prisma.group.findMany({
+      where: {
+        members: {
+          none: { id: userId }, // Ensures the user is NOT a member of the group
+        },
+      },
+      select: {
+        id: true,
+        group_name: true,
+        about: true,
+        profile_image: true,
+      },
+    });
 
-    // Extract specific information from each group
-    const formattedGroups = groups.map((group) => ({
-      _id: group._id,
-      groupName: group.groupName,
-      about: group.about,
-      profileImage: group.profileImage,
-    }));
+    if (!groups.length) {
+      return res.status(404).json({
+        success: false,
+        message: "No groups available to join",
+      });
+    }
 
     res.status(200).json({
-      sucess: true,
-      message: "Groups",
-      data: formattedGroups,
+      success: true,
+      message: "Groups available to join",
+      data: groups,
     });
   } catch (error) {
-    console.log(error);
-    res.status(500).json({ sucess: false, message: "Internal server error" });
+    console.error(error);
+    res.status(500).json({
+      success: false,
+      message: "Internal server error",
+    });
   }
 };

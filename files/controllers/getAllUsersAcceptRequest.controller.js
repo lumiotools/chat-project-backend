@@ -1,47 +1,73 @@
 import jwt from "jsonwebtoken";
-import userModel from "../models/user.model.js";
-import RequestModel from "../models/request.model.js";
+import { prisma } from "../utils/prismaClient.js";
+
 export const getAllUsersAcceptRequests = async (req, res) => {
   try {
     const { token } = req.body;
+
     if (!token) {
-      res.status(400).json({ sucess: false, message: "User Not Login" });
+      return res.status(400).json({
+        success: false,
+        message: "User not logged in",
+      });
     }
 
+    // Decode the token to get the current user's ID
     const decodedData = jwt.verify(token, process.env.SECRET_KEY);
-    const id = decodedData._id;
+    const userId = decodedData.id;
 
-    // Get all users except the sender
-    const users = await userModel
-      .find({ _id: { $ne: id } })
-      .select("userName about profileImage _id");
-
-    // Fetch all requests sent by the sender
-    const sentRequests = await RequestModel.find({
-      to: id,
-      is_accepted: false,
-      is_rejected:false,
+    // Fetch all users except the current user
+    const users = await prisma.user.findMany({
+      where: { id: { not: userId } },
+      select: {
+        id: true,
+        user_name: true,
+        about: true,
+        profile_image: true,
+      },
     });
 
-    // Get IDs of users to whom requests are already sent
-    const sentUserIds = sentRequests.map((request) => request.from.toString());
+    // Fetch all pending requests where:
+    // 1. `to` matches the current user ID.
+    // 2. Requests are not accepted or rejected.
+    const sentRequests = await prisma.request.findMany({
+      where: {
+        OR: [
+          { to: userId, is_accepted: true, is_rejected: false }, // Regular `to` field
+          { from: userId, is_accepted: true, is_rejected: false }, // Check if current user sent the request
+        ],
+      },
+      select: {
+        from: true,
+        to: true,
+      },
+    });
 
-    // Filter out users to whom requests are already sent
-    const DBUsers = users.filter(
-      (user) => sentUserIds.includes(user._id.toString())
-    );
+    // Collect all alternative user IDs (both `from` and `to`)
+    const relatedUserIds = sentRequests
+      .map((request) => (request.from === userId ? request.to : request.from))
+      .filter((id) => id !== userId); // Ensure we exclude the current user ID
 
-    if (!DBUsers) {
-      res.status(400).json({ sucess: false, message: "users not found" });
+    // Filter users to include only those matching the related user IDs
+    const DBUsers = users.filter((user) => relatedUserIds.includes(user.id));
+
+    if (DBUsers.length === 0) {
+      return res.status(404).json({
+        success: false,
+        message: "Users not found",
+      });
     }
 
     res.status(200).json({
-      sucess: true,
-      message: "users lists",
+      success: true,
+      message: "Users list retrieved successfully",
       data: DBUsers,
     });
   } catch (error) {
-    console.log(error);
-    res.status(500).json({ sucess: false, message: "Internal server error" });
+    console.error(error);
+    res.status(500).json({
+      success: false,
+      message: "Internal server error",
+    });
   }
 };

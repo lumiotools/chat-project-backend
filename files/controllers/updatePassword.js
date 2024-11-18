@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
-import userModel from "../models/user.model.js";
 import bcrypt from "bcryptjs";
+import { prisma } from "../utils/prismaClient.js";
 
 
 export const updatePasswordController = async (req, res) => {
@@ -11,12 +11,14 @@ export const updatePasswordController = async (req, res) => {
       res.status(400).json({ sucess: false, message: "data not found" });
     }
     const decodedData = jwt.verify(token, process.env.SECRET_KEY);
-    const id = decodedData._id;
-    let DBUser;
+    const id = decodedData.id;
 
    
-      // find user
-      DBUser = await userModel.findOne({ _id: id });
+    const DBUser = await prisma.user.findUnique({
+      where:{
+        id
+      }
+    });
   
 
     if (!DBUser) {
@@ -26,15 +28,16 @@ export const updatePasswordController = async (req, res) => {
     // hash user password
     const salt = bcrypt.genSaltSync(10);
     const hash = bcrypt.hashSync(password, salt);
-    const updatedUserData = await userModel.findByIdAndUpdate(
-      id,
-      {
-        password:hash
+    const updatedUserData= await prisma.user.update({
+      where:{
+        id
       },
-      {
-        new: true,
+      data:{
+        password:hash
       }
-    );
+    })
+
+    
     console.log(updatedUserData);
     res.status(200).json({
       sucess: true,

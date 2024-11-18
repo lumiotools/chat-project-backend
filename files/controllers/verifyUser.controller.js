@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-import userModel from "../models/user.model.js";
+import { prisma } from "../utils/prismaClient.js";
 export const verifyUserController = async (req, res) => {
   try {
     const { token } = req.body;
@@ -7,25 +7,29 @@ export const verifyUserController = async (req, res) => {
       res.status(400).json({ sucess: false, message: "user not found" });
     }
     const decodedData = jwt.verify(token, process.env.SECRET_KEY);
-    const id = decodedData._id;
-    let DBUser;
+    const id = decodedData.id;
 
-    // find user
-    DBUser = await userModel.findOne({ _id: id });
+    const DBUser= await prisma.user.findUnique({
+      where:{
+        id
+      }
+    })
 
     if (!DBUser) {
       res.status(400).json({ sucess: false, message: "user not found" });
     }
 
-    const updatedUserData = await userModel.findByIdAndUpdate(
-      id,
-      {
-        isVerifyed: true,
+
+    await prisma.user.update({
+      where:{
+        id
       },
-      {
-        new: true,
+      data:{
+        isVerifyed: true
       }
-    );
+    });
+
+    
     res.status(200).json({
       sucess: true,
       message: "verification successfully",

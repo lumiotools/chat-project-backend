@@ -1,0 +1,83 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String @id @default(cuid())
+  user_name String? @unique @map("userName")
+  email String @unique
+  password String
+  profile_image String? @map("profileImage") @default("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4eMoz7DH8l_Q-iCzSc1xyu_C2iryWh2O9_FcDBpY04w&s")
+  about String? @default("I am ................")
+  age Int? @default(0)
+  isVerifyed Boolean @default(false)
+  isTwoFactorEnabled Boolean @default(false)
+  created_at DateTime @default(now()) @map("createdAt")
+  updated_at DateTime @updatedAt @map("updatedAt")
+
+  formRequests Request[] @relation("fromUser")
+  toRequests Request[] @relation("toUser")
+  messageSender Message[] @relation("messageSender")
+  messageReciver Message[] @relation("messageReciver")
+  groupAdmin Group[] @relation("groupAdmin")
+  groupMessageSender GroupMessages[] @relation("groupMessageSender")
+}
+
+model Request {
+  id String @id @default(cuid())
+  from String
+  to String
+  is_accepted Boolean @map("isAccepted") @default(false)
+  is_rejected Boolean @map("isRejected") @default(false)
+  created_at DateTime @map("createdAt") @default(now())
+  updated_at DateTime @map("updatedAt") @updatedAt
+  sender User @relation("fromUser",fields: [from], references: [id])
+  reciver User @relation("toUser",fields: [to], references: [id])
+}
+
+enum messageType{
+  TEXT
+  IMAGE
+  VIDEO
+}
+model Message {
+    id String @id @default(cuid())
+    from String
+    to String
+    message String
+    message_type messageType @map("messageType") @default(TEXT) 
+    created_at DateTime @map("createdAt") @default(now())
+    updated_at DateTime @map("updatedAt") @updatedAt()
+    sender User @relation("messageSender",fields: [from], references: [id])
+    reciver User @relation("messageReciver",fields: [to], references: [id])
+}
+
+
+model Group{
+  id String @id @default(cuid())
+  group_name String @map("groupName")
+  about String @default("Hello Friends....")
+  profile_image String @map("profileImage") @default("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4eMoz7DH8l_Q-iCzSc1xyu_C2iryWh2O9_FcDBpY04w&s")
+  members String[] 
+  group_admin String @map("groupAdmin")
+  group_message GroupMessages[]  @relation("messageReciverGroup")
+  groupAdmin User @relation("groupAdmin",fields: [group_admin],references: [id])
+} 
+
+model GroupMessages {
+    id String @id @default(cuid())
+    from String
+    to String
+    message String
+    message_type messageType @map("messageType") @default(TEXT) 
+    created_at DateTime @map("createdAt") @default(now())
+    updated_at DateTime @map("updatedAt") @updatedAt()
+
+    group Group @relation("messageReciverGroup",fields: [to],references: [id])
+    sender User @relation("groupMessageSender",fields: [from],references: [id])
+}

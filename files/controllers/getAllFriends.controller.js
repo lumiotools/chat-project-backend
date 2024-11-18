@@ -1,46 +1,67 @@
 import jwt from "jsonwebtoken";
-import userModel from "../models/user.model.js";
-import RequestModel from "../models/request.model.js";
+import { prisma } from "../utils/prismaClient.js";
+
 export const getAllFrendsRequests = async (req, res) => {
   try {
     const { token } = req.body;
+
     if (!token) {
-      res.status(400).json({ sucess: false, message: "User Not Login" });
+      return res.status(400).json({
+        success: false,
+        message: "User not logged in",
+      });
     }
 
+    // Decode the token to get the current user's ID
     const decodedData = jwt.verify(token, process.env.SECRET_KEY);
-    const id = decodedData._id;
+    const userId = decodedData.id;
 
-    // Get all users except the sender
-    const users = await userModel
-      .find({ _id: { $ne: id } })
-      .select("userName about profileImage _id");
-
-    // Fetch all requests sent by the sender
-    const sentRequests = await RequestModel.find({
-      from: id,
-      is_accepted: true,
-      is_rejected: false,
+    // Fetch all users except the current user
+    const users = await prisma.user.findMany({
+      where: { id: { not: userId } },
+      select: {
+        id: true,
+        user_name: true,
+        about: true,
+        profile_image: true,
+      },
     });
 
-    // Get IDs of users to whom requests are already sent
-    const sentUserIds = sentRequests.map((request) => request.to.toString());
+    // Fetch all accepted requests sent by the current user
+    const sentRequests = await prisma.request.findMany({
+      where: {
+        from: userId,
+        is_accepted: true,
+        is_rejected: false,
+      },
+      select: {
+        to: true,
+      },
+    });
 
-    // Filter out users to whom requests are already sent
-    const DBUsers = users.filter((user) =>
-      sentUserIds.includes(user._id.toString())
-    );
+    // Get IDs of users to whom requests are already accepted
+    const sentUserIds = sentRequests.map((request) => request.to);
 
-    if (!DBUsers) {
-      res.status(400).json({ sucess: false, message: "Frends not found" });
+    // Filter users who match the accepted request IDs
+    const friends = users.filter((user) => sentUserIds.includes(user.id));
+
+    if (friends.length === 0) {
+      return res.status(404).json({
+        success: false,
+        message: "Friends not found",
+      });
     }
+
     res.status(200).json({
-      sucess: true,
-      message: "Frends",
-      data: DBUsers,
+      success: true,
+      message: "Friends list retrieved successfully",
+      data: friends,
     });
   } catch (error) {
-    console.log(error);
-    res.status(500).json({ sucess: false, message: "Internal server error" });
+    console.error(error);
+    res.status(500).json({
+      success: false,
+      message: "Internal server error",
+    });
   }
 };
